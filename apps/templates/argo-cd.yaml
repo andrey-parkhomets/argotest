@@ -12,7 +12,7 @@ spec:
   project: default
   source:
     path: charts/argo-cd
-    repoURL: https://github.com/andrey-parkhomets/argotest.git.git
+    repoURL: https://github.com/andrey-parkhomets/argotest.git
     targetRevision: HEAD
   syncPolicy:
     automated:
