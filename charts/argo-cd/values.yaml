@@ -18,11 +18,13 @@ argo-cd:
         nginx.ingress.kubernetes.io/rewrite-target: /$1
       hosts:
         - argocd.local
-      extraPaths:
-        - path: "/(.*)"
-          pathType: Prefix
-          backend:
-            service:
-              name: argo-cd-argocd-server
-              port:
-                name: http
+      paths:
+        - "/(.*)"
+      # extraPaths:
+      #   - path: "/(.*)"
+      #     pathType: Prefix
+      #     backend:
+      #       service:
+      #         name: argo-cd-argocd-server
+      #         port:
+      #           name: http
