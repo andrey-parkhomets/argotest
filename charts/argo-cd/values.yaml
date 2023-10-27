@@ -6,3 +6,26 @@ argo-cd:
       server.insecure: true
       server.rootpath: "/argocd"
       server.basehref: "/argocd"
+
+  server:
+    ingress:
+      enabled: true
+      ingressClassName: "nginx"
+      https: false
+      annotations:
+        kubernetes.io/ingress.class: "public"
+        nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+        nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+        nginx.ingress.kubernetes.io/rewrite-target: /$1
+      hosts:
+        - argocd.local
+      paths:
+        - "/(.*)"
+      extraPaths:
+        - path: "/(.*)"
+          pathType: Prefix
+          backend:
+            service:
+              name: argo-cd-argocd-server
+              port:
+                name: http
