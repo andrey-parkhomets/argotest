@@ -4,7 +4,7 @@ version: 1.0.0
 dependencies:
   - name: emberstack
     version: 2.2.26
-    repository: https://emberstack.github.io/helm-charts
+    repository: https://github.com/emberstack/helm-charts
 home: https://github.com/emberstack/docker-azure-pipelines-agent
 
 keywords:
