@@ -1,0 +1,19 @@
+apiVersion: v2
+appVersion: 2.2.26
+description: A Helm chart for Azure Pipelines Agent
+home: https://github.com/emberstack/docker-azure-pipelines-agent
+icon: https://raw.githubusercontent.com/emberstack/CDN/master/Projects/docker-azure-pipelines-agent/azure-pipelines.png
+keywords:
+- azure
+- pipelines
+- devops
+- agent
+maintainers:
+- email: helm-charts@emberstack.com
+  name: winromulus
+name: azure-pipelines-agent
+sources:
+- https://github.com/emberstack/docker-azure-pipelines-agent
+type: application
+version: 2.2.26
+

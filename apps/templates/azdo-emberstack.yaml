@@ -11,7 +11,7 @@ spec:
     namespace: azdo-emberstack
   project: default
   source:
-    path: charts/azdo-emberstack
+    path: charts/azure-pipelines-agent
     repoURL: https://github.com/andrey-parkhomets/argotest.git
     targetRevision: HEAD
   syncPolicy:
