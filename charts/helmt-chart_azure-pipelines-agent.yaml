@@ -4,4 +4,4 @@ repository: https://emberstack.github.io/helm-charts
 namespace: azdo-emberstack
 name: azdo-emberstack
 values:
-  - azure-pipelines-agent/values.yaml
+  - values.yaml

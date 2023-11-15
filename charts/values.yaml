@@ -1,0 +1,6 @@
+pipelines:
+  url: "https://dev.azure.com/klf2000"
+  pat:
+    secretRef:
+      name: my-secret
+      key: my-key
