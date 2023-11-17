@@ -2,6 +2,6 @@ chart: azure-pipelines-agent
 version: 2.2.26
 repository: https://emberstack.github.io/helm-charts
 namespace: azdo-emberstack
-name: azdo-emberstack
+name: azure-pipelines-agent
 values:
   - values.yaml
