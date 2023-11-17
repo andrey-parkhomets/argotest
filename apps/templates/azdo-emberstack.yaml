@@ -14,9 +14,6 @@ spec:
     path: charts/azure-pipelines-agent
     repoURL: https://github.com/andrey-parkhomets/argotest.git
     targetRevision: HEAD
-    directory:
-      jsonnet: {}
-      recurse: true
   syncPolicy:
     automated:
       prune: true
