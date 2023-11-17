@@ -4,3 +4,15 @@ resources:
   - ./azure-pipelines-agent/templates/serviceaccount.yaml
   - ./azure-pipelines-agent/templates/statefulset.yaml
   - ./sealed-secret.yaml
+
+configurations:
+  - configuration/sealed-secret-config.yaml
+
+generatorOptions:
+  annotations:
+    sealedsecrets.bitnami.com/managed: "true"
+    sealedsecrets.bitnami.com/namespace-wide: "true"
+
+secretGenerator:
+  - name: my-secret
+    type: Opaque
