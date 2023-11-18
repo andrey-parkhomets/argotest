@@ -38,7 +38,7 @@ namespace: azdo-emberstack
 generatorOptions:
   labels: # adds labels to the generated resources
     my.label: mylabel
-  disableNameSuffixHash: true # disables the suffix generation
+  # disableNameSuffixHash: true # disables the suffix generation
   annotations:
     sealedsecrets.bitnami.com/managed: "true"
     sealedsecrets.bitnami.com/namespace-wide: "true"
