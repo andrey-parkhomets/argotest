@@ -6,15 +6,13 @@ resources:
   - ./azure-pipelines-agent/templates/statefulset.yaml
 
 
+secretGenerator:
+  - name: my-secret
+    type: Opaque
 configurations:
   - configuration/sealed-secret-config.yaml
-
 generatorOptions:
 #  disableNameSuffixHash: true
   annotations:
     sealedsecrets.bitnami.com/managed: "true"
     sealedsecrets.bitnami.com/namespace-wide: "true"
-
-secretGenerator:
-  - name: my-secret
-    type: Opaque
