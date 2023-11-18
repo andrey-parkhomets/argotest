@@ -1,5 +1,9 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+
+# namespace is important to set for configuration/sealed-secret-config.yaml to work properly
+namespace: azdo-emberstack
+
 resources:
   - ./sealed-secret.yaml
   - ./azure-pipelines-agent/templates/serviceaccount.yaml
@@ -12,7 +16,8 @@ secretGenerator:
 configurations:
   - configuration/sealed-secret-config.yaml
 generatorOptions:
-#  disableNameSuffixHash: true
+  # in worth case just disable hash
+  # disableNameSuffixHash: true
   annotations:
     sealedsecrets.bitnami.com/managed: "true"
     sealedsecrets.bitnami.com/namespace-wide: "true"
