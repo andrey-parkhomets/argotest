@@ -1,7 +1,34 @@
-apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 sortOptions:
-  order: fifo 
+  order: legacy
+  legacySortOptions:
+    orderFirst:
+    - Namespace
+    - ResourceQuota
+    - StorageClass
+    - CustomResourceDefinition
+    - ServiceAccount
+    - PodSecurityPolicy
+    - Role
+    - ClusterRole
+    - RoleBinding
+    - ClusterRoleBinding
+    - ConfigMap
+    - Secret
+    - Endpoints
+    - Service
+    - LimitRange
+    - PriorityClass
+    - PersistentVolume
+    - PersistentVolumeClaim
+    - Deployment
+    - StatefulSet
+    - CronJob
+    - PodDisruptionBudget
+    orderLast:
+    - MutatingWebhookConfiguration
+    - ValidatingWebhookConfiguration
+    - SealedSecret
 
 # namespace is important to set for configuration/sealed-secret-config.yaml to work properly
 namespace: azdo-emberstack
@@ -22,7 +49,7 @@ secretGenerator:
     type: Opaque
 configurations:
   - configuration/sealed-secret-config.yaml
-  
+
 resources:
   - ./sealed-secret.yaml
   - ./azure-pipelines-agent/templates/serviceaccount.yaml
