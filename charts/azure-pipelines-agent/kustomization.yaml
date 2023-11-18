@@ -9,8 +9,8 @@ resources:
 secretGenerator:
   - name: my-secret
     type: Opaque
-# configurations:
-#   - configuration/sealed-secret-config.yaml
+configurations:
+  - configuration/sealed-secret-config.yaml
 generatorOptions:
 #  disableNameSuffixHash: true
   annotations:
