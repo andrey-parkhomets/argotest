@@ -17,13 +17,14 @@ generatorOptions:
     sealedsecrets.bitnami.com/managed: "true"
     sealedsecrets.bitnami.com/namespace-wide: "true"
 
-resources:
-  - ./sealed-secret.yaml
-  - ./azure-pipelines-agent/templates/serviceaccount.yaml
-  - ./azure-pipelines-agent/templates/statefulset.yaml
-
 secretGenerator:
   - name: my-secret
     type: Opaque
 configurations:
   - configuration/sealed-secret-config.yaml
+  
+resources:
+  - ./sealed-secret.yaml
+  - ./azure-pipelines-agent/templates/serviceaccount.yaml
+  - ./azure-pipelines-agent/templates/statefulset.yaml
+
