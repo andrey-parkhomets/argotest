@@ -1,34 +1,34 @@
 kind: Kustomization
-sortOptions:
-  order: legacy
-  legacySortOptions:
-    orderFirst:
-    - Namespace
-    - ResourceQuota
-    - StorageClass
-    - CustomResourceDefinition
-    - ServiceAccount
-    - PodSecurityPolicy
-    - Role
-    - ClusterRole
-    - RoleBinding
-    - ClusterRoleBinding
-    - ConfigMap
-    - Secret
-    - Endpoints
-    - Service
-    - LimitRange
-    - PriorityClass
-    - PersistentVolume
-    - PersistentVolumeClaim
-    - Deployment
-    - StatefulSet
-    - CronJob
-    - PodDisruptionBudget
-    orderLast:
-    - MutatingWebhookConfiguration
-    - ValidatingWebhookConfiguration
-    - SealedSecret
+# sortOptions:
+#   order: legacy
+#   legacySortOptions:
+#     orderFirst:
+#     - Namespace
+#     - ResourceQuota
+#     - StorageClass
+#     - CustomResourceDefinition
+#     - ServiceAccount
+#     - PodSecurityPolicy
+#     - Role
+#     - ClusterRole
+#     - RoleBinding
+#     - ClusterRoleBinding
+#     - ConfigMap
+#     - Secret
+#     - Endpoints
+#     - Service
+#     - LimitRange
+#     - PriorityClass
+#     - PersistentVolume
+#     - PersistentVolumeClaim
+#     - Deployment
+#     - StatefulSet
+#     - CronJob
+#     - PodDisruptionBudget
+#     orderLast:
+#     - MutatingWebhookConfiguration
+#     - ValidatingWebhookConfiguration
+#     - SealedSecret
 
 # namespace is important to set for configuration/sealed-secret-config.yaml to work properly
 namespace: azdo-emberstack
