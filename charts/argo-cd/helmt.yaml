@@ -1,0 +1,7 @@
+chart: argo-cd
+version: 5.51.2
+repository: https://argoproj.github.io/argo-helm
+namespace: argocd
+name: argocd
+values:
+  - values.yaml
