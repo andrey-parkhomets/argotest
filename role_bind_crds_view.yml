@@ -1,0 +1,14 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  annotations:
+    rbac.authorization.kubernetes.io/autoupdate: "true"
+  name: oidc-role-view
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: view-crds
+subjects:
+- apiGroup: rbac.authorization.k8s.io
+  kind: Group
+  name: 6c8558f1-5006-4101-a4db-d467e103fb4e
