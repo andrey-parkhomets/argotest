@@ -27,6 +27,8 @@ server:
       nginx.ingress.kubernetes.io/rewrite-target: /$1
     hosts:
       - argocd.local
+      - argocd.local.192.168.105.13.nip.io
+      - 192.168.105.13.nip.io
     paths:
       - "/(.*)"
     # extraPaths:
