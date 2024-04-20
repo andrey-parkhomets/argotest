@@ -4,5 +4,5 @@ kind: Kustomization
 resources:
   - ./templates/root.yaml
   - ./templates/argo-cd.yaml
-  # - ./templates/sealed-secrets.yaml
+  - ./templates/sealed-secrets.yaml
   # - ./templates/azdo-emberstack.yaml
