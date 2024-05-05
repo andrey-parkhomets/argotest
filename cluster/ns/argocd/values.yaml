@@ -13,6 +13,17 @@ configs:
         - "Restore"
         clusters:
         - "*"
+    dex.config: |
+      connectors:
+        # GitHub example
+        - type: github
+          id: github
+          name: GitHub
+          config:
+            clientID: $argocd-oidc-secret:oidc.auth0.clientId
+            clientSecret: $argocd-oidc-secret:oidc.auth0.clientSecret
+            orgs:
+            - name: klf2000org
   params:
     server.insecure: true
     server.rootpath: "/argocd"
@@ -26,10 +37,8 @@ server:
       nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
       nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
       nginx.ingress.kubernetes.io/rewrite-target: /$1
-    hostname:
-      - argocd.local
-    paths:
-      - "/(.*)"
+    hostname:  argocd.local
+    path: "/(.*)"
     extraHosts: 
       - name: argocd.local.192.168.105.13.nip.io
         path: "/(.*)"
@@ -43,3 +52,9 @@ server:
     #         name: argo-cd-argocd-server
     #         port:
     #           name: http
+
+
+oidc:
+  oauth:
+    encryptedClientSecret: AgC2/damktFSinF5SEqn3QtU677KjdOureUDH9G0B+x/cO6Cd5djNGSSeR5bj40FOl3i/JAa/cv/6feNPFD6pZDzVMPVXNaCBGBdWCjhrbUxsf7wPXUlyLeqEa6sGjtCKIUX9sQVUph/wlFnCtiHdOwsoZhDq2Jebj1T1/LRF5dDjT36sDX0HiEQLYFZdCJeZxu4QlCWVfixGX0fxyLRBHrySWMWsLESewNOg3+rp6e6sPwR8h4MPvakJze4IgEcEWl9oImHnl01SxhGj/pImSuTn0SW2LySxuAwhjWs5KzTbxB31JRRsU2iZyd2lRhZ1i6KZxiiNNiRN78ug9whOov0VaQa5mEaEydLsjk5sgNHTy1dMpCleEdQPumkBPp/4mxAW7a4jr4GckQeRC/VIWaQbErj7PPIMj5Z5F9NxXwikfmd//UtJZMd2qvn71NeAD2GFAvqrq0wezgsGZNesyG22fKRYUf2xzQRemNjcKxrOhJ2EJGM9a4vR+70pl/82BsuO4Wiy4csrO2fD93BIcSrLu808sFR6PvQsIi7c0qfCyLi0E50HOPQpKeHh/9FxMLGSgl8mqBjaauerPTJSGMtWmwhz1cv6k6iEIAgzYAxJE3R86dw/+m7WciFx4UsC2KMUFOdPNLhN7hd/sZf+yoJnHNLkyHG2Sr5gdAooND3PG2ji0U6mij8NIZsjJ8QCNrvwWzmON8lXCm4pE0557RfgWNd7uMF3ooYvJ85kEkxQpqAzo8cX3T3
+    encryptedClientId: AgACPTQZgV9B2Rm+DmQlmv4WrnL+mKJ9doXmwLffEUoBAbWCNcD4e1r5IpxFT0DuMtEdlGddwKbuYvE1NJKcXTcwzrzjhQT8GkggyTCeZxNGtLD9nPK7FjLVxv2uU/pTNG/xcXsRY/+IXg7L46B6API5dqAgTnjlXAO9A83kf16i+hwDrG5MAuDnx7ocyj9EjhIUkwRzVxasrgO8oD3AMtfANQKByZI0rUw2Gk6e2RasbBANgHQQLU/WUIyC3HCRnqDxvxESv3JKdKN0zuWiwQhDn4yPkZ7SxEm8M3qeRKVm9+likiIZOvxVea/pWTZUIv12sLxjxnzlbZ268LwlUnO7YZlAocCEe3J0ulNY7Z7x5SxRbdL2zrSQhnL0iFx55HupEVRUnHZ64FEfnIgWSWGiEVNoJxEP3gUTF79i62Oik0Sm7ZcvZpXs9nnmBiLosg9MyyXEWDyfEccMG9+V3aUFBl8Fl/jBXANCygxPJIJfE9tbXi+dSdVuPGu3cLQh55w4o1a2B+/WeYjXK7s1aSUMl4lFa4TZQrC7XFE/tYoRrL39iIGY8CsGdfhp1JcOr+d8uqI1IbfkMPCHOd/PwyBDfrdNngdg+lDc4cPKTt3gBzsPKkcDBtK5RdQJaRxzH5fp3PGY5XxGyluWQMffMjctEXG1FRx8cu3B/RWQrT6acZzdt5HESowtqNt49Fnr6CbpPxwxBigYIk+YMs9pCTypa6KtVQ==
