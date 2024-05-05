@@ -31,8 +31,8 @@ configs:
             - name: klf2000org
   params:
     server.insecure: true
-    # server.rootpath: "/argocd"
-    # server.basehref: "/argocd"
+    server.rootpath: "/argocd"
+    server.basehref: "/argocd"
 server:
   logLevel: "debug"
   ingress:
