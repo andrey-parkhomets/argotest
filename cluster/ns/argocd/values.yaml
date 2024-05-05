@@ -1,6 +1,7 @@
 #https://github.com/argoproj/argo-helm/blob/main/charts/argo-cd/values.yaml
 dex:
   enabled: true
+  logLevel: "debug"
 configs:
   cm:
     create: true
