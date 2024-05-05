@@ -20,8 +20,8 @@ configs:
           id: github
           name: GitHub
           config:
-            clientID: $argocd-oidc-secret:oidc.auth0.clientId
-            clientSecret: $argocd-oidc-secret:oidc.auth0.clientSecret
+            clientID: $argocd-oidc-secret:oidc.auth0.clientid
+            clientSecret: $argocd-oidc-secret:oidc.auth0.clientsecret
             orgs:
             - name: klf2000org
   params:
