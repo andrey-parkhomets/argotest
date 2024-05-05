@@ -2,7 +2,7 @@
 global:
   # -- Default domain used by all components
   ## Used for ingresses, certificates, SSO, notifications, etc.
-  domain: local
+  domain: argocd.local
 dex:
   enabled: true
   logLevel: "debug"
