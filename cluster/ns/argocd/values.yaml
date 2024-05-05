@@ -1,4 +1,8 @@
 #https://github.com/argoproj/argo-helm/blob/main/charts/argo-cd/values.yaml
+global:
+  # -- Default domain used by all components
+  ## Used for ingresses, certificates, SSO, notifications, etc.
+  domain: argocd.local
 dex:
   enabled: true
   logLevel: "debug"
@@ -30,6 +34,7 @@ configs:
     server.rootpath: "/argocd"
     server.basehref: "/argocd"
 server:
+  logLevel: "debug"
   ingress:
     enabled: true
     ingressClassName: "nginx"
