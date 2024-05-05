@@ -6,12 +6,13 @@ helmGlobals:
   chartHome: helm-charts
 
 helmCharts:
+- name: my-argocd-secrets
+  releaseName: argocd
+  valuesFile: values.yaml
+
 - name: argo-cd
   repo: https://argoproj.github.io/argo-helm
   version: 6.7.18
-  releaseName: argocd
-  valuesFile: values.yaml
-- name: my-argocd-secrets
   releaseName: argocd
   valuesFile: values.yaml
 
