@@ -32,7 +32,6 @@ configs:
           id: github
           name: GitHub
           config:
-            redirectURI: https://argocd.local/argocd/api/dex/callback
             clientID: $argocd-oidc-secret:oidc.auth0.clientId
             clientSecret: $argocd-oidc-secret:oidc.auth0.clientSecret
             orgs:
@@ -40,7 +39,7 @@ configs:
   params:
     server.insecure: true
     server.rootpath: "/argocd"
-    server.basehref: "/argocd"
+    # server.basehref: "/argocd"
   rbac:
     policy.csv: |
       p, role:org-admin, applications, *, */*, allow
