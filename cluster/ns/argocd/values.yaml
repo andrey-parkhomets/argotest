@@ -11,6 +11,7 @@ dex:
   logLevel: "debug"
 configs:
   cm:
+    url: "https://argocd.local/argocd"
     create: true
     kustomize.buildOptions: --enable-helm
     resource.exclusions: |
@@ -30,8 +31,8 @@ configs:
         - type: github
           id: github
           name: GitHub
-          redirectURI: "https://argocd.local/argocd/api/dex/callback"
           config:
+            redirectURI: https://argocd.local/argocd/api/dex/callback
             clientID: $argocd-oidc-secret:oidc.auth0.clientId
             clientSecret: $argocd-oidc-secret:oidc.auth0.clientSecret
             orgs:
@@ -40,25 +41,40 @@ configs:
     server.insecure: true
     server.rootpath: "/argocd"
     server.basehref: "/argocd"
+  rbac:
+    policy.csv: |
+      p, role:org-admin, applications, *, */*, allow
+      p, role:org-admin, clusters, get, *, allow
+      p, role:org-admin, repositories, get, *, allow
+      p, role:org-admin, repositories, create, *, allow
+      p, role:org-admin, repositories, update, *, allow
+      p, role:org-admin, repositories, delete, *, allow
+      p, role:org-admin, logs, get, *, allow
+      p, role:org-admin, exec, create, */*, allow
+      g, klf2000org:team-default, role:org-admin
+    policy.default: "role:readonly"
 server:
   logLevel: "debug"
   ingress:
     enabled: true
     ingressClassName: "nginx"
     https: false
-    # annotations:
-    #   nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
-    #   nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    annotations:
+      nginx.ingress.kubernetes.io/use-regex: "true"
+      # nginx.ingress.kubernetes.io/rewrite-target: /$2
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
       # nginx.ingress.kubernetes.io/rewrite-target: /$1
-    hostname:  argocd.local
-    path: "/"
+    # hostname:  argocd.local
+    path: /argocd
+    # pathType: ImplementationSpecific
     # extraHosts: 
     #   - name: argocd.local.192.168.105.13.nip.io
     #     path: "/(.*)"
     #   - name: 192.168.105.13.nip.io
     #     path: "/(.*)"
     # extraPaths:
-    #   - path: "/(.*)"
+    #   - path: /api/dex/callback
     #     pathType: Prefix
     #     backend:
     #       service:
