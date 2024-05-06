@@ -62,7 +62,9 @@ configs:
       p, role:org-admin, logs, get, *, allow
       p, role:org-admin, exec, create, */*, allow
       g, klf2000org:team-default, role:org-admin
+      g, "andrey.parkhomets@gmail.com", role:org-admin
     policy.default: "role:readonly"
+    scopes: '[groups, email]'
 server:
   logLevel: "debug"
   ingress:
