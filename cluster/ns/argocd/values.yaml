@@ -36,6 +36,17 @@ configs:
             clientSecret: $argocd-oidc-secret:oidc.auth0.clientSecret
             orgs:
             - name: klf2000org
+        - type: saml
+          id: saml
+          name: saml
+          config:
+            entityIssuer: https://argocd.local/argocd/api/dex/callback
+            ssoURL: https://login.microsoftonline.com/580ac1bb-0b92-4429-bd35-bacc4d2b3cbd/saml2
+            caData: |
+              LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tDQpNSUlDOERDQ0FkaWdBd0lCQWdJUVBoTDVQd2tzV29OS291NHk0Z2JGWHpBTkJna3Foa2lHOXcwQkFRc0ZBREEwTVRJd01BWURWUVFEDQpFeWxOYVdOeWIzTnZablFnUVhwMWNtVWdSbVZrWlhKaGRHVmtJRk5UVHlCRFpYSjBhV1pwWTJGMFpUQWVGdzB5TkRBMU1EWXhNalV6DQpNRGhhRncweU56QTFNRFl4TWpVek1EaGFNRFF4TWpBd0JnTlZCQU1US1UxcFkzSnZjMjltZENCQmVuVnlaU0JHWldSbGNtRjBaV1FnDQpVMU5QSUVObGNuUnBabWxqWVhSbE1JSUJJakFOQmdrcWhraUc5dzBCQVFFRkFBT0NBUThBTUlJQkNnS0NBUUVBNHViVFpGdUVHcmhJDQp0S3pPS1FQMkVQeG1VMERKemhkU2REOEppUjMrN3o2RURuWmdGN3lieTR1N2dtZWh5bnNGaHNVN1JncXZMYnQ4dHlQclJ1TDFBNm9HDQpheVc3Y2ZKUzllcFdtL21xcmJpOTV4R2lHZWhRZVdDQ3VDQTVrdlFWZURmOWgybjZTUWZpbGQ1VldIR3VKUzExaGZacXd3OFF6YXg3DQpIWXcxU2EzNVVsclFMT0xMaG1RL2MyUVJtM0wzNzRxN2pyN2h0QWRvQXlpV2o4OWVJYlZjRVFHcDFIUXVpRUh1c3ljY0x0UTlxWldHDQpzTk9Jc3htcndqRTVrbXd6T1RYYVNmTjFmNXJDSGFkVWt3OHlNeVUxTjZVYTJydE96d0NDcDBMRTJYWXU3UXZOVXFtMmltdHZURDMwDQpqbkVvVnRZcnRWU0NodXNFd0hMSCttWUJHUUlEQVFBQk1BMEdDU3FHU0liM0RRRUJDd1VBQTRJQkFRQ2dQZDhRTm0wdDZOS2pZNk9mDQpuTjhLaTl2OWVCRVNaZGxYU3Y0SVZPOWlNMVJDNkJ3dnM1NTRIK3FuL0JpQzNUYWxpNGdzTFdSN0p2K0Z5NnhzblBlTStRN1FCQUNoDQpzYzFiY2dvSVJUSHJlVlhRcUx0dkhvczZyaEZlSU00ejdSTDBzNjlHNFFlYXNKRGZtakl2b2Z5d2FyT0FCV3kraE1RSlpOL2o1TjJNDQpmRURzMjBVcGRuYVlWMWNEZHZHb1k4TUdtL0xMV2VtYXpEZjQ3OHhnMWVOS0plRDRkNGt1dVBidEZhRlZLTkpVM3kraDJyeDI0TVVlDQovbG5peGxqWlB4Q1o0OW4yTUhkMHhrbnQ1ckU4Yis2QmcxSUxtNVU4WHJaNlFXVlNmdEF3QnhWTm41OTk4RWJJZjF3LzhtdEtKa04vDQoyUzRwT3lQMHErRHpvWGo5K2JIcA0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQ0K
+            redirectURI: https://argocd.local/argocd/api/dex/callback
+            usernameAttr: email
+            emailAttr: email
   params:
     server.insecure: true
     server.rootpath: "/argocd"
