@@ -17,6 +17,6 @@ helmCharts:
   valuesFile: values.yaml
 
 
-# resources:
-# - overlays/AppProject_root.yaml
-# - overlays/Application_argocd.yaml
+resources:
+- overlays/AppProject_root.yaml
+- overlays/Application_argocd.yaml
