@@ -19,4 +19,4 @@ helmCharts:
 
 resources:
 - overlays/AppProject_root.yaml
-# - overlays/Application_argocd.yaml
+- overlays/Application_argocd.yaml
