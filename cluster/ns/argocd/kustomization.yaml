@@ -20,3 +20,10 @@ helmCharts:
 resources:
 - overlays/AppProject_root.yaml
 - overlays/Application_argocd.yaml
+
+# patchesStrategicMerge:
+# - |-
+#   apiVersion: v1
+#   kind: ConfigMap
+#   metadata:
+#     name: argocd-cm

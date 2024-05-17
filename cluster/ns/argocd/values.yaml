@@ -11,6 +11,7 @@ dex:
   logLevel: "debug"
 configs:
   cm:
+    application.resourceTrackingMethod: "annotation+label"
     url: "https://argocd.local/argocd"
     create: true
     kustomize.buildOptions: --enable-helm
