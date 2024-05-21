@@ -6,9 +6,14 @@ helmGlobals:
   chartHome: helm-charts
 
 helmCharts:
+- name: sealed-secrets
+  repo:  https://bitnami-labs.github.io/sealed-secrets
+  releaseName: sealed-secrets
+  valuesFile: values_sealed-secrets.yaml
+
 - name: my-argocd-secrets
   releaseName: argocd
-  valuesFile: values.yaml
+  valuesFile: values_my-argocd-secrets.yaml
 
 - name: argo-cd
   repo: https://argoproj.github.io/argo-helm
