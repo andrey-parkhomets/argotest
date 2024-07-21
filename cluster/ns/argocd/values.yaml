@@ -51,7 +51,7 @@ configs:
   params:
     server.insecure: true
     server.rootpath: "/argocd"
-    # server.basehref: "/argocd"
+    server.basehref: "/argocd"
   rbac:
     policy.csv: |
       p, role:org-admin, applications, *, */*, allow
