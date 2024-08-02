@@ -12,8 +12,11 @@ helmCharts:
   repo:  https://bitnami-labs.github.io/sealed-secrets
   version: 2.16.1
   releaseName: sealed-secrets
-  valuesFile: values_sealed-secrets.yaml
+  # valuesFile: values_sealed-secrets.yaml
   includeCRDs: true
+  valuesInline:
+    fullnameOverride: sealed-secrets
+    namespace: sealed-secrets
 
 - name: my-argocd-secrets
   namespace: argocd
