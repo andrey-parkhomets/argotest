@@ -1,14 +1,14 @@
 #https://github.com/argoproj/argo-helm/blob/main/charts/argo-cd/values.yaml
 global:
   logging:
-    level: debug
-    format: json
+    level: info #debug
+    format: text #json
   # -- Default domain used by all components
   ## Used for ingresses, certificates, SSO, notifications, etc.
   domain: argocd.local
 dex:
   enabled: true
-  logLevel: "debug"
+  logLevel: info #"debug"
 configs:
   cm:
     application.resourceTrackingMethod: "annotation+label"
@@ -24,9 +24,6 @@ configs:
         clusters:
         - "*"
     dex.config: |
-      logger:
-        level: debug
-        format: json
       connectors:
         # GitHub example
         - type: github
