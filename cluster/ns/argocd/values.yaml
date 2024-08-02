@@ -10,19 +10,19 @@ crds:
   install: true
   keep: true
 
-redis-ha:
-  enabled: true
+# redis-ha:
+#   enabled: true
 
-controller:
-  replicas: 1
+# controller:
+#   replicas: 1
 
-repoServer:
-  autoscaling:
-    enabled: true
-    minReplicas: 2
+# repoServer:
+#   autoscaling:
+#     enabled: true
+#     minReplicas: 2
 
-applicationSet:
-  replicas: 2
+# applicationSet:
+#   replicas: 2
 
 dex:
   enabled: true
@@ -82,9 +82,9 @@ configs:
     policy.default: "role:readonly"
     scopes: '[groups, email]'
 server:
-  autoscaling:
-    enabled: true
-    minReplicas: 2
+  # autoscaling:
+  #   enabled: true
+  #   minReplicas: 2
   logLevel: "info"
   ingress:
     enabled: true
