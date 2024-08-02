@@ -6,6 +6,24 @@ global:
   # -- Default domain used by all components
   ## Used for ingresses, certificates, SSO, notifications, etc.
   domain: argocd.local
+crds:
+  install: true
+  keep: true
+
+redis-ha:
+  enabled: true
+
+controller:
+  replicas: 1
+
+repoServer:
+  autoscaling:
+    enabled: true
+    minReplicas: 2
+
+applicationSet:
+  replicas: 2
+
 dex:
   enabled: true
   logLevel: info #"debug"
@@ -24,9 +42,6 @@ configs:
         clusters:
         - "*"
     dex.config: |
-      logger:
-        level: debug
-        format: json
       connectors:
         # GitHub example
         - type: github
@@ -38,8 +53,8 @@ configs:
             orgs:
             - name: klf2000org
         - type: saml
-          id: saml
-          name: saml
+          id: azure
+          name: azure
           config:
             entityIssuer: https://argocd.local/argocd/api/dex/callback
             ssoURL: https://login.microsoftonline.com/580ac1bb-0b92-4429-bd35-bacc4d2b3cbd/saml2
@@ -67,7 +82,10 @@ configs:
     policy.default: "role:readonly"
     scopes: '[groups, email]'
 server:
-  logLevel: "debug"
+  autoscaling:
+    enabled: true
+    minReplicas: 2
+  logLevel: "info"
   ingress:
     enabled: true
     ingressClassName: "nginx"
