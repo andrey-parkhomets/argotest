@@ -24,6 +24,9 @@ configs:
         clusters:
         - "*"
     dex.config: |
+      logger:
+        level: debug
+        format: json
       connectors:
         # GitHub example
         - type: github
