@@ -13,6 +13,7 @@ helmCharts:
   version: 2.16.1
   releaseName: sealed-secrets
   valuesFile: values_sealed-secrets.yaml
+  includeCRDs: true
 
 - name: my-argocd-secrets
   namespace: argocd
