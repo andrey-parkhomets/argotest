@@ -4,6 +4,8 @@ kind: Namespace
 metadata:
   creationTimestamp: null
   name: sealed-secrets
+  labels:
+    app: sealedsecret 
 ---
 apiVersion: v1
 kind: Namespace
