@@ -10,6 +10,7 @@ bash -c ./update_secrets.sh
 until [[ $exit_code -eq 0 ]]; do 
 kustomize build --enable-helm . |kubectl apply --force=true -l app!=sealedsecret -f -
 exit_code=$?
+done
 kubectl -n argocd wait --for=condition=Available deployment/argocd-applicationset-controller
 kubectl -n argocd wait --for=condition=Available deployment/argocd-server
 kubectl -n argocd wait --for=condition=Available deployment/argocd-repo-server
