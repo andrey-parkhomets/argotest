@@ -18,6 +18,8 @@ helmCharts:
   valuesInline:
     fullnameOverride: sealed-secrets
     namespace: sealed-secrets
+    commonLabels: 
+      app: sealedsecret
 
 - name: my-argocd-secrets
   namespace: argocd
