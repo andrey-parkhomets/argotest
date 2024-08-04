@@ -30,6 +30,7 @@ helmCharts:
   version: 7.3.11
   releaseName: argocd
   valuesFile: values.yaml
+  includeCRDs: true
 
 
 resources:
