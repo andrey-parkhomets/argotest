@@ -1,7 +1,7 @@
 #https://github.com/argoproj/argo-helm/blob/main/charts/argo-cd/values.yaml
 global:
   logging:
-    level: info #debug
+    level: "debug"
     format: text #json
   # -- Default domain used by all components
   ## Used for ingresses, certificates, SSO, notifications, etc.
@@ -26,7 +26,7 @@ crds:
 
 dex:
   enabled: true
-  logLevel: info #"debug"
+  logLevel: "debug"
 configs:
   cm:
     application.resourceTrackingMethod: "annotation+label"
@@ -85,7 +85,7 @@ server:
   # autoscaling:
   #   enabled: true
   #   minReplicas: 2
-  logLevel: "info"
+  logLevel: "debug"
   ingress:
     enabled: true
     ingressClassName: "nginx"
