@@ -29,14 +29,19 @@ helmCharts:
   repo: https://argoproj.github.io/argo-helm
   version: 7.3.11
   releaseName: argocd
+  valuesInline:
+    crds:
+      install: false
   valuesFile: values.yaml
-  includeCRDs: true
+  
 
 
 resources:
 - namespace.yaml
+- "https://github.com/argoproj/argo-cd/manifests/crds?ref=v2.11.7"
 - overlays/AppProject_root.yaml
 - overlays/Application_argocd.yaml
+
 
 # patchesStrategicMerge:
 # - |-
