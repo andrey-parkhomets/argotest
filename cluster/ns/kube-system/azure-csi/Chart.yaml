@@ -1,0 +1,11 @@
+apiVersion: v2
+name: azure-csi
+description: A Helm chart for Kubernetes
+type: application
+version: 1.0.0
+appVersion: "1.0.0"
+
+dependencies:
+- name: csi-secrets-store-provider-azure
+  repository: https://azure.github.io/secrets-store-csi-driver-provider-azure/charts
+  version: v1.5.3

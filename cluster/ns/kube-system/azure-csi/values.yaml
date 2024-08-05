@@ -1,0 +1,7 @@
+---
+enableArcExtension: false
+linux:
+  kubeletRootDir: /var/snap/microk8s/common/var/lib/kubelet/pods
+secrets-store-csi-driver:
+  linux:
+    kubeletRootDir: /var/snap/microk8s/common/var/lib/kubelet/pods
