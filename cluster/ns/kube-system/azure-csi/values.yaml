@@ -1,5 +1,5 @@
 ---
-global:
+csi-secrets-store-provider-azure:
   enableArcExtension: false
   linux:
     kubeletRootDir: /var/snap/microk8s/common/var/lib/kubelet/pods
