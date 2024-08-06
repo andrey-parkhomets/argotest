@@ -41,6 +41,7 @@ configs:
         - "Restore"
         clusters:
         - "*"
+    exec.enabled: true
     dex.config: |
       connectors:
         # GitHub example

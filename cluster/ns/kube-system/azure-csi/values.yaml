@@ -5,4 +5,5 @@ csi-secrets-store-provider-azure:
   #   kubeletRootDir: /var/snap/microk8s/common/var/lib/kubelet
   secrets-store-csi-driver:
     linux:
+      #microk8s only !
       kubeletRootDir: /var/snap/microk8s/common/var/lib/kubelet
