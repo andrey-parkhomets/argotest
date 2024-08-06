@@ -5,4 +5,4 @@ csi-secrets-store-provider-azure:
   #   kubeletRootDir: /var/snap/microk8s/common/var/lib/kubelet/pods
   secrets-store-csi-driver:
     linux:
-      kubeletRootDir: /var/snap/microk8s/common/var/lib/kubelet/pods
+      kubeletRootDir: /var/snap/microk8s/common/var/lib/kubelet
