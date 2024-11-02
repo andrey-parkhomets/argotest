@@ -8,18 +8,6 @@ helmGlobals:
   chartHome: helm-charts
 
 helmCharts:
-# - name: sealed-secrets
-#   namespace: sealed-secrets
-#   repo:  https://bitnami-labs.github.io/sealed-secrets
-#   version: 2.16.1
-#   releaseName: sealed-secrets
-#   # valuesFile: values_sealed-secrets.yaml
-#   includeCRDs: true
-#   valuesInline:
-#     fullnameOverride: sealed-secrets
-#     namespace: sealed-secrets
-#     commonLabels: 
-#       app: sealed-secrets
 
 - name: my-argocd-secrets
   namespace: argocd
@@ -35,16 +23,10 @@ helmCharts:
     crds:
       install: true
   valuesFile: values.yaml
-  
-
 
 resources:
 - namespace.yaml
-# - "https://github.com/argoproj/argo-cd/manifests/crds?ref=v2.11.7"
-# - overlays/AppProject_root.yaml
-# - overlays/argocd.yaml
 - overlays/root-argocd-app.yaml
-#- overlays/Application_csi.yaml
 
 # patchesStrategicMerge:
 # - |-
