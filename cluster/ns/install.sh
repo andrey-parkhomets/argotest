@@ -44,9 +44,9 @@ kubectl -n argocd wait -l statefulset.kubernetes.io/pod-name=argocd-application-
 
 sleep 20
 
-kubectl rollout restart deployment/argocd-server -n argocd
-kubectl rollout restart  statefulset/argocd-application-controller -n argocd
-sleep 5
+# kubectl rollout restart deployment/argocd-server -n argocd
+# kubectl rollout restart  statefulset/argocd-application-controller -n argocd
+# sleep 5
 argocd login --core
 kubectl config set-context --current --namespace=argocd
 argocd app list 
