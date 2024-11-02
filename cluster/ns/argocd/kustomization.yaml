@@ -33,14 +33,14 @@ helmCharts:
   releaseName: argocd
   valuesInline:
     crds:
-      install: false
+      install: true
   valuesFile: values.yaml
   
 
 
 resources:
 - namespace.yaml
-- "https://github.com/argoproj/argo-cd/manifests/crds?ref=v2.11.7"
+# - "https://github.com/argoproj/argo-cd/manifests/crds?ref=v2.11.7"
 - overlays/AppProject_root.yaml
 - overlays/Application_argocd.yaml
 #- overlays/Application_csi.yaml
