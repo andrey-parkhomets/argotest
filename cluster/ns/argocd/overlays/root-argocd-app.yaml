@@ -3,7 +3,10 @@ kind: Application
 metadata:
   name: root-argocd-app
   namespace: argocd
-
+  labels:
+    argocd.argoproj.io/instance: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
     namespace: argocd
@@ -15,7 +18,7 @@ spec:
     path: cluster/argocd-apps
     repoURL: "https://github.com/andrey-parkhomets/argotest.git"
     targetRevision: HEAD
-  # syncPolicy:
-  #   automated:
-  #     prune: true
-  #     selfHeal: true
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
