@@ -6,6 +6,9 @@ global:
   # -- Default domain used by all components
   ## Used for ingresses, certificates, SSO, notifications, etc.
   domain: argocd.local
+  additionalLabels: 
+    argocd.argoproj.io/instance: argocd
+
 crds:
   install: true
   keep: true
