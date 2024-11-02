@@ -16,7 +16,7 @@ spec:
     path: cluster/ns/argocd
     repoURL: "https://github.com/andrey-parkhomets/argotest.git"
     targetRevision: HEAD
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
+  # syncPolicy:
+  #   automated:
+  #     prune: true
+  #     selfHeal: true
