@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: root-argocd-applications
+  name: root-argocd-app
   namespace: argocd
   labels:
     argocd.argoproj.io/instance: argocd
@@ -14,7 +14,7 @@ spec:
   source:
     directory:
       recurse: true
-    path: cluster/argocd-applications
+    path: cluster/argocd-apps
     repoURL: "https://github.com/andrey-parkhomets/argotest.git"
     targetRevision: HEAD
   syncPolicy:
