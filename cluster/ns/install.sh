@@ -43,6 +43,10 @@ kubectl -n argocd wait --for=condition=Available deployment/argocd-redis
 kubectl -n argocd wait -l statefulset.kubernetes.io/pod-name=argocd-application-controller-0 --for=condition=ready pod --timeout=-1s
 
 sleep 20
+
+kubectl rollout restart deployment/argocd-server -n argocd
+kubectl rollout restart  statefulset/argocd-application-controller -n argocd
+sleep 5
 argocd login --core
 kubectl config set-context --current --namespace=argocd
 argocd app list 
@@ -54,7 +58,6 @@ argocd app wait argocd --sync --health
 # kubectl rollout restart deployment/sealed-secrets -n sealed-secrets
 # kubectl rollout restart deployment/argocd-dex-server -n argocd
 # kubectl rollout restart deployment/argocd-redis -n argocd
-# sleep 5
-kubectl rollout restart deployment/argocd-server -n argocd
-kubectl rollout restart  statefulset/argocd-application-controller -n argocd
 
+
+rm -rf helm-charts/argo-cd-* helm-charts/sealed-secrets-*
