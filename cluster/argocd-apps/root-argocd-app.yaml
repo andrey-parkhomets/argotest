@@ -11,7 +11,7 @@ spec:
   project: root
   source:
     directory:
-      recurse: false
+      recurse: true
     path: cluster/argocd-apps
     repoURL: "https://github.com/andrey-parkhomets/argotest.git"
     targetRevision: HEAD
