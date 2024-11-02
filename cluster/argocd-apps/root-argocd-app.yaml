@@ -3,8 +3,6 @@ kind: Application
 metadata:
   name: root-argocd-app
   namespace: argocd
-  labels:
-    argocd.argoproj.io/instance: argocd
 
 spec:
   destination:
