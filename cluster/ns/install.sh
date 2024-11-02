@@ -1,28 +1,39 @@
 #!/usr/bin/env bash
-
+set -x
+function ku-apply(){
+    set -x
+    export scope=${1:-undefined}
+    exit_code=1
+    cnt=0
+    until [[ $exit_code -eq 0 || $cnt -gt 5 ]]; do
+        ((cnt++))
+        kustomize build --enable-helm . \
+        | yq '(select(.kind == strenv(scope) ))'\
+        | kubectl apply --force=true --wait=true  -f -
+        exit_code=$?
+    done
+}
+cd sealed-secrets
 rm -rf helm-charts/argo-cd-* helm-charts/sealed-secrets-*
 
-exit_code=1
-until [[ $exit_code -eq 0 ]]; do
-kustomize build --enable-helm . \
-| yq '(select(.kind == "CustomResourceDefinition" ))'\
-| kubectl apply --force=true --wait=true  -f -
-exit_code=$?
-done
+ku-apply CustomResourceDefinition
 
 exit_code=1
 until [[ $exit_code -eq 0 ]]; do 
-kustomize build --enable-helm . |kubectl apply --force=true --wait=true  -l app=sealedsecret -f -
-exit_code=$?
+    kustomize build --enable-helm . |kubectl apply --force=true --wait=true  -l app=sealed-secrets -f -
+    exit_code=$?
 done
 
 kubectl -n sealed-secrets wait --for=condition=Available=true deployment/sealed-secrets
+
+
+cd ../argocd
 bash -c ./update_secrets.sh
 
 exit_code=1
 until [[ $exit_code -eq 0 ]]; do 
-kustomize build --enable-helm . |kubectl apply --force=true --wait=true -f -
-exit_code=$?
+    kustomize build --enable-helm . |kubectl apply --force=true --wait=true -f -
+    exit_code=$?
 done
 
 kubectl -n argocd wait --for=condition=Available deployment/argocd-applicationset-controller

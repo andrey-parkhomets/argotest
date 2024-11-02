@@ -21,28 +21,12 @@ helmCharts:
     commonLabels: 
       app: sealed-secrets
 
-- name: my-argocd-secrets
-  namespace: argocd
-  releaseName: argocd
-  valuesFile: values_my-argocd-secrets.yaml
-
-- name: argo-cd
-  namespace: argocd
-  repo: https://argoproj.github.io/argo-helm
-  version: 7.3.11
-  releaseName: argocd
-  valuesInline:
-    crds:
-      install: false
-  valuesFile: values.yaml
-  
 
 
 resources:
 - namespace.yaml
-- "https://github.com/argoproj/argo-cd/manifests/crds?ref=v2.11.7"
-- overlays/AppProject_root.yaml
-- overlays/Application_argocd.yaml
+
+
 #- overlays/Application_csi.yaml
 
 # patchesStrategicMerge:
