@@ -41,8 +41,8 @@ helmCharts:
 resources:
 - namespace.yaml
 # - "https://github.com/argoproj/argo-cd/manifests/crds?ref=v2.11.7"
-- overlays/AppProject_root.yaml
-- overlays/argocd.yaml
+# - overlays/AppProject_root.yaml
+# - overlays/argocd.yaml
 - overlays/root-argocd-app.yaml
 #- overlays/Application_csi.yaml
 
