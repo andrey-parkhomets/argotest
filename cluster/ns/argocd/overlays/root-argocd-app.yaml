@@ -3,10 +3,6 @@ kind: Application
 metadata:
   name: root-argocd-app
   namespace: argocd
-  labels:
-    argocd.argoproj.io/instance: argocd
-  # finalizers:
-  # - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
     namespace: argocd
@@ -21,4 +17,4 @@ spec:
   syncPolicy:
     automated:
       prune: false
-      selfHeal: true
+      selfHeal: false
