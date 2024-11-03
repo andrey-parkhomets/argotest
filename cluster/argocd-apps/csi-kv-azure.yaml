@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: csi-secrets-store-provider-azure
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: kube-system
+    server: https://kubernetes.default.svc
+  source:
+    path: ''
+    repoURL: https://azure.github.io/secrets-store-csi-driver-provider-azure/charts
+    targetRevision: 1.6.0
+    chart: csi-secrets-store-provider-azure
+    helm:
+      valuesObject:
+        enableArcExtension: false
+        secrets-store-csi-driver:
+          linux:
+            #microk8s only !
+            kubeletRootDir: /var/snap/microk8s/common/var/lib/kubelet
+  project: root
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: false
