@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
-set -x
 function ku-apply(){
-    set -x
     export scope=${1:-undefined}
     exit_code=1
     cnt=0

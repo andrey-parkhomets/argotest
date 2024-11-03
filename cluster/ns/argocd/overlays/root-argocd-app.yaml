@@ -3,7 +3,7 @@ kind: Application
 metadata:
   name: root-argocd-app
   namespace: argocd
-  finalizers: {}
+  finalizers: []
 spec:
   destination:
     namespace: argocd
