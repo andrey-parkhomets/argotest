@@ -19,4 +19,6 @@ spec:
       prune: true
       selfHeal: true
     syncOptions:
+    - ApplyOutOfSyncOnly=true
+    - FailOnSharedResource=true
     - PrunePropagationPolicy=orphan
