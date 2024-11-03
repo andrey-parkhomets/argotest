@@ -28,7 +28,7 @@ kubectl -n sealed-secrets wait --for=condition=Available=true deployment/sealed-
 
 
 cd ../argocd
-# bash -c ./update_secrets.sh
+bash -c ./update_secrets.sh
 
 exit_code=1
 until [[ $exit_code -eq 0 ]]; do 
@@ -42,7 +42,7 @@ kubectl -n argocd wait --for=condition=Available deployment/argocd-repo-server
 kubectl -n argocd wait --for=condition=Available deployment/argocd-redis
 kubectl -n argocd wait -l statefulset.kubernetes.io/pod-name=argocd-application-controller-0 --for=condition=ready pod --timeout=-1s
 
-sleep 20
+sleep 10
 
 # kubectl rollout restart deployment/argocd-server -n argocd
 # kubectl rollout restart  statefulset/argocd-application-controller -n argocd
@@ -50,8 +50,8 @@ sleep 20
 argocd login --core
 kubectl config set-context --current --namespace=argocd
 argocd app list 
-argocd app get argocd/argocd --hard-refresh
-argocd app wait argocd --sync --health
+argocd app get argocd/root-argocd-app --hard-refresh
+argocd app wait root-argocd-app --sync --health
 # argocd app sync argocd --kube-context argocd --server-side --apply-out-of-sync-only --timeout 50
 # argocd app sync argocd --kube-context argocd --resource bitnami.com:SealedSecret:argocd-oidc-secret
 

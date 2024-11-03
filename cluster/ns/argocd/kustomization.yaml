@@ -26,6 +26,7 @@ helmCharts:
 
 resources:
 - namespace.yaml
+- overlays/argo-only.yaml
 - overlays/root-argocd-app.yaml
 
 # patchesStrategicMerge:

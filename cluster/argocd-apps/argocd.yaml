@@ -5,8 +5,8 @@ metadata:
   namespace: argocd
   # labels:
   #   argocd.argoproj.io/instance: argocd
-  finalizers:
-  - resources-finalizer.argocd.argoproj.io
+  # finalizers:
+  # - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
     namespace: argocd
