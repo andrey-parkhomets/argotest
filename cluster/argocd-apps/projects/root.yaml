@@ -13,3 +13,4 @@ spec:
     server: https://kubernetes.default.svc
   sourceRepos:
   - 'https://github.com/andrey-parkhomets/argotest.git'
+  - 'https://azure.github.io/secrets-store-csi-driver-provider-azure/charts'
