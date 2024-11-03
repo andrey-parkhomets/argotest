@@ -1,4 +1,5 @@
 #https://github.com/argoproj/argo-helm/blob/main/charts/argo-cd/values.yaml
+#https://github.com/argoproj/argo-helm/blob/argo-cd-7.5.2/charts/argo-cd/values.yaml
 global:
   logging:
     level: "debug"
