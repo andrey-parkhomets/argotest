@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: argo-only
+  namespace: argocd
+
+spec:
+  clusterResourceWhitelist:
+  - group: 'argoproj.io'
+    kind: 'AppProject'
+  - group: 'argoproj.io'
+    kind: 'Application'
+  destinations:
+  - namespace: '*'
+    server: https://kubernetes.default.svc
+  sourceRepos:
+  - '*'

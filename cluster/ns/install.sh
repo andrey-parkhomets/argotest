@@ -28,7 +28,7 @@ kubectl -n sealed-secrets wait --for=condition=Available=true deployment/sealed-
 
 
 cd ../argocd
-bash -c ./update_secrets.sh
+# bash -c ./update_secrets.sh
 
 exit_code=1
 until [[ $exit_code -eq 0 ]]; do 

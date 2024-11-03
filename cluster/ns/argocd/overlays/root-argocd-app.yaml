@@ -11,7 +11,7 @@ spec:
   destination:
     namespace: argocd
     server: https://kubernetes.default.svc
-  project: root
+  project: argo-only
   source:
     directory:
       recurse: true
