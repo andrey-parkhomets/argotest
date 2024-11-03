@@ -73,16 +73,11 @@ configs:
     server.basehref: "/argocd"
   rbac:
     policy.csv: |
-      p, role:org-admin, applications, *, */*, allow
-      p, role:org-admin, clusters, get, *, allow
-      p, role:org-admin, repositories, get, *, allow
-      p, role:org-admin, repositories, create, *, allow
-      p, role:org-admin, repositories, update, *, allow
-      p, role:org-admin, repositories, delete, *, allow
-      p, role:org-admin, logs, get, *, allow
-      p, role:org-admin, exec, create, */*, allow
-      g, klf2000org:team-default, role:org-admin
-      g, "andrey.parkhomets@gmail.com", role:org-admin
+      p, role:admin, applications, delete, root/argocd, deny
+      p, role:admin, applications, delete, argo-only/root-argocd-app, deny
+      p, role:admin, applications, delete, root/sealed-secrets, deny
+      g, klf2000org:team-default, role:admin
+      g, "andrey.parkhomets@gmail.com", role:admin
     policy.default: "role:readonly"
     scopes: '[groups, email]'
 server:
