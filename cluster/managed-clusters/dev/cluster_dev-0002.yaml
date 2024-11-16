@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: dev-0002
+  labels:
+    argocd.argoproj.io/secret-type: cluster
+    env: dev
+type: Opaque
+stringData:
+  name: dev-0002  # Human-readable name for the cluster
+  server: https://dev-cluster1.apik8s.example.com  # API server URL for in-cluster
