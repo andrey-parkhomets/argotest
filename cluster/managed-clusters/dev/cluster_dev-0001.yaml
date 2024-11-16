@@ -8,4 +8,4 @@ metadata:
 type: Opaque
 stringData:
   name: dev-0001  # Human-readable name for the cluster
-  server: https://dev-cluster1.apik8s.example.com  # API server URL for in-cluster
+  server: https://dev-cluster1.apik8s.example.com    # API server URL for in-cluster
