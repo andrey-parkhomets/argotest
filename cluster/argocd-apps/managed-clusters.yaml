@@ -1,18 +1,28 @@
 apiVersion: argoproj.io/v1alpha1
-kind: Application
+kind: ApplicationSet
 metadata:
-  name: managed-clusters
+  name: managed-clusters-all
   namespace: argocd
 spec:
-  project: root
-  source:
-    repoURL: https://github.com/andrey-parkhomets/argotest.git
-    path: cluster/managed-clusters  # The directory containing all cluster configurations
-    targetRevision: HEAD
-    directory:
-      recurse: true
-  destination:
-    server: https://kubernetes.default.svc # Root argo
-    namespace: argocd
-  syncPolicy:
-    automated: {}
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+  - git:
+      repoURL: https://github.com/andrey-parkhomets/argotest.git
+      revision: HEAD
+      directories:
+      - path: cluster/managed-clusters/*
+  template:
+    metadata:
+      name: '{{.path.basename}}'
+    spec:
+      project: "root"
+      source:
+        repoURL: https://github.com/andrey-parkhomets/argotest.git
+        targetRevision: HEAD
+        path: '{{.path.path}}'
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: argocd
+    syncPolicy:
+      automated: {}
