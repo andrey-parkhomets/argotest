@@ -4,7 +4,7 @@ metadata:
   name: managed-clusters
   namespace: argocd
 spec:
-  project: default
+  project: root
   source:
     repoURL: git@github.com:andrey-parkhomets/argotest.git
     path: cluster/managed-clusters  # The directory containing all cluster configurations
