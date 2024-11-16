@@ -6,7 +6,7 @@ metadata:
 spec:
   project: root
   source:
-    repoURL: git@github.com:andrey-parkhomets/argotest.git
+    repoURL: https://github.com/andrey-parkhomets/argotest.git
     path: cluster/managed-clusters  # The directory containing all cluster configurations
     targetRevision: HEAD
   destination:
