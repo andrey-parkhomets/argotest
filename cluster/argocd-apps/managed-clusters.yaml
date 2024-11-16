@@ -26,3 +26,7 @@ spec:
         namespace: argocd
       syncPolicy:
         automated: {}
+      ignoreDifferences:
+      - kind: ConfigMap
+        jqPathExpressions:
+        - '.stringData.config'
