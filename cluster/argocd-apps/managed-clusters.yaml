@@ -11,7 +11,7 @@ spec:
     targetRevision: HEAD
     directory:
       recurse: true
-      include: 'cluster_*.yaml'
+      include: '*.yaml'
   destination:
     server: https://kubernetes.default.svc # Root argo
     namespace: argocd
