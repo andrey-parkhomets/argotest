@@ -15,18 +15,18 @@ spec:
     repoURL: "https://github.com/andrey-parkhomets/argotest.git"
     targetRevision: HEAD
   syncPolicy:
-    # automated:
-    #   prune: true
-    #   selfHeal: true
-    #   allowEmpty: true
-    # syncOptions:
-    # - Retry=false
-    # - ApplyOutOfSyncOnly=true
-    # - FailOnSharedResource=true
-    # - PrunePropagationPolicy=orphan
-    # retry:
-    #   limit: 5 # Maximum number of retries
-    #   backoff:
-    #     duration: 5s # Initial retry interval
-    #     factor: 2 # Multiplication factor for the backoff
-    #     maxDuration: 1m # Maximum retry interval
+    automated:
+      prune: true
+      selfHeal: true
+      allowEmpty: true
+    syncOptions:
+    - Retry=true
+    - ApplyOutOfSyncOnly=true
+    - FailOnSharedResource=true
+    - PrunePropagationPolicy=orphan
+    retry:
+      limit: 5 # Maximum number of retries
+      backoff:
+        duration: 5s # Initial retry interval
+        factor: 2 # Multiplication factor for the backoff
+        maxDuration: 1m # Maximum retry interval
