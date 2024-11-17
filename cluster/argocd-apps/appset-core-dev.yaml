@@ -50,7 +50,7 @@ spec:
       source:
         repoURL: https://github.com/andrey-parkhomets/argotest.git
         targetRevision: HEAD
-        path: "cluster/managed-clusters-charts/{{.appName}}"
+        path: "cluster/managed-k8s-charts/{{.appName}}"
         helm:
           releaseName: '{{.appName}}'
           valueFiles:

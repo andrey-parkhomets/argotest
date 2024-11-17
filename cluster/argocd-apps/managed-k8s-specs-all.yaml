@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: managed-clusters-defenitions-all
+  name: managed-k8s-specs-all
   namespace: argocd
 spec:
   goTemplate: true
@@ -11,10 +11,10 @@ spec:
       repoURL: https://github.com/andrey-parkhomets/argotest.git
       revision: HEAD
       directories:
-      - path: cluster/managed-clusters-defenitions/*
+      - path: cluster/managed-k8s-specs/*
   template:
     metadata:
-      name: 'managed-clusters-defenitions-{{.path.basename}}'
+      name: 'managed-k8s-specs-{{.path.basename}}'
     spec:
       project: "root"
       source:
