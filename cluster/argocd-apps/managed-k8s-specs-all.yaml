@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: managed-k8s-specs-all
+  name: managed-clusters-all
   namespace: argocd
 spec:
   goTemplate: true
@@ -11,10 +11,10 @@ spec:
       repoURL: https://github.com/andrey-parkhomets/argotest.git
       revision: HEAD
       directories:
-      - path: cluster/managed-k8s-specs/*
+      - path: cluster/managed-clusters/*
   template:
     metadata:
-      name: 'managed-k8s-specs-{{.path.basename}}'
+      name: 'managed-clusters-{{.path.basename}}'
     spec:
       project: "root"
       source:
@@ -25,7 +25,10 @@ spec:
         server: https://kubernetes.default.svc
         namespace: argocd
       syncPolicy:
-        automated: {}
+        automated:
+          prune: true
+          selfHeal: true
+          allowEmpty: true
       ignoreDifferences:
       - kind: ConfigMap
         jqPathExpressions:
