@@ -14,7 +14,7 @@ spec:
       - path: cluster/managed-clusters/*
   template:
     metadata:
-      name: 'managed-clusters-{{.path.basename}}'
+      name: 'managed-cluster-{{.path.basename}}'
     spec:
       project: "root"
       source:
