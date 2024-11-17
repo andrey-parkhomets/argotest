@@ -6,10 +6,10 @@ spec:
   generators:
     - matrix:
         generators:
-          - clusters:
-              selector:
-                matchLabels:
-                  environment: dev
+          - clusters: {}
+              # selector:
+              #   matchLabels:
+              #     environment: dev
           - list:
               elements:
               - appName: external-secrets
@@ -33,13 +33,13 @@ spec:
   # goTemplate: true
   template:
     metadata:
-      name: '{{.cluster.name}}-{{.appName}}'
+      name: '{{.name}}-{{.appName}}'
       labels:
         appName: '{{.appName}}'
-        site: '{{.cluster.metadata.labels.site}}' # Use cluster site label
-        environment: '{{.cluster.metadata.labels.environment}}' # Use environment label
-      annotations:
-        managedBy: '{{.cluster.metadata.annotations.team}}' # Use team annotation
+        site: '{{.metadata.labels.site}}' # Use cluster site label
+        env: '{{.metadata.labels.env}}' # Use environment label
+      # annotations:
+      #   managedBy: '{{.metadata.annotations.team}}' # Use team annotation
     spec:
       project: root
       source:
@@ -49,8 +49,8 @@ spec:
         helm:
           releaseName: '{{.appName}}'
           valueFiles:
-            - "../../{{.appName}}/values-{{.cluster.metadata.labels.environment}}.yaml"
-            # - "../../{{.appName}}/values-{{.cluster.metadata.labels.environment}}-{{.cluster.metadata.labels.label}}.yaml"
+            - "../../{{.appName}}/values-{{.metadata.labels.env}}.yaml"
+            # - "../../{{.appName}}/values-{{.metadata.labels.env}}-{{.metadata.labels.label}}.yaml"
       destination:
         server: https://kubernetes.default.svc
         namespace: argocd
