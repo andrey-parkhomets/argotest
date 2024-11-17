@@ -64,4 +64,4 @@ spec:
         name: '{{.name}}'
         namespace: '{{.namespace}}'
       syncPolicy:
-        automated: {}
+        # automated: {}
