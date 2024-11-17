@@ -34,7 +34,7 @@ dex:
 configs:
   cm:
     application.resourceTrackingMethod: "annotation+label"
-    # url: "https://argocd.local/argocd"
+    url: "https://argocd.local/argocd"
     create: true
     kustomize.buildOptions: --enable-helm --load-restrictor=LoadRestrictionsNone
     resource.exclusions: |
