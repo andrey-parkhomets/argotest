@@ -13,7 +13,7 @@ spec:
                   operator: In
                   values:
                   - dev
-                  - prod
+                  # - prod
 
           - list:
               elements:
