@@ -21,6 +21,9 @@ spec:
               elements:
               - appName: external-secrets
                 namespace: kube-infra-vault
+  ignoreApplicationDifferences:
+  - jsonPointers:
+    - /spec/syncPolicy
   strategy:
     type: RollingSync
     rollingSync:
@@ -58,8 +61,8 @@ spec:
           releaseName: '{{.appName}}'
           valueFiles:
             - "values.yaml"
-            # - "values-{{.metadata.labels.env}}.yaml"
-            # - "../../{{.appName}}/values-{{.metadata.labels.env}}-{{.metadata.labels.label}}.yaml"
+            - "values-{{.metadata.labels.env}}.yaml"
+            - "values-{{.metadata.labels.env}}-{{.metadata.labels.label}}.yaml"
       destination:
         name: '{{.name}}'
         namespace: '{{.namespace}}'
@@ -79,3 +82,12 @@ spec:
             duration: 5s # Initial retry interval
             factor: 2 # Multiplication factor for the backoff
             maxDuration: 1m # Maximum retry interval
+  syncPolicy:
+    # Prevents ApplicationSet controller from modifying or deleting Applications
+    # applicationsSync: create-only
+
+    # Prevents ApplicationSet controller from deleting Applications. Update is allowed
+    applicationsSync: create-update
+
+    # Prevents ApplicationSet controller from modifying Applications. Delete is allowed.
+    # applicationsSync: create-delete
