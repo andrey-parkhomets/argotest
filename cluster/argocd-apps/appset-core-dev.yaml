@@ -38,11 +38,11 @@ spec:
   goTemplate: true
   template:
     metadata:
-      name: '{{.name}}-{{.appName}}'
+      name: '{{name}}-{{appName}}'
       labels:
-        appName: '{{.appName}}'
-        site: '{{.metadata.labels.site}}' # Use cluster site label
-        env: '{{.metadata.labels.env}}' # Use environment label
+        appName: '{{appName}}'
+        site: '{{metadata.labels.site}}' # Use cluster site label
+        env: '{{metadata.labels.env}}' # Use environment label
       # annotations:
       #   managedBy: '{{.metadata.annotations.team}}' # Use team annotation
     spec:
@@ -50,15 +50,15 @@ spec:
       source:
         repoURL: https://github.com/andrey-parkhomets/argotest.git
         targetRevision: HEAD
-        path: "cluster/managed-clusters-charts/{{.appName}}"
+        path: "cluster/managed-clusters-charts/{{appName}}"
         helm:
-          releaseName: '{{.appName}}'
+          releaseName: '{{appName}}'
           valueFiles:
             - "values.yaml"
             # - "values-{{.metadata.labels.env}}.yaml"
             # - "../../{{.appName}}/values-{{.metadata.labels.env}}-{{.metadata.labels.label}}.yaml"
       destination:
-        server: {{.server}}
-        namespace: {{.namespace}}
+        server: '{{name}}'
+        namespace: '{{namespace}}'
       syncPolicy:
         automated: {}
