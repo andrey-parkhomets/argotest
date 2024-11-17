@@ -4,11 +4,16 @@ metadata:
   name: project-dev
   namespace: argocd
 spec:
+  description: Project for DEV clusters
+  sourceRepos:
+  - '*'
+
   clusterResourceWhitelist:
   - group: '*'
     kind: '*'
   destinations:
   - namespace: '*'
-    server: '*'
-  sourceRepos:
-  - '*'
+    name: 'dev-*'
+  orphanedResources:
+    warn: true
+permitOnlyProjectScopedClusters: true
