@@ -12,14 +12,8 @@ spec:
                   environment: dev
           - list:
               elements:
-              - appName: metrics-server
-                namespace: kube-system
-              - appName: ingress-nginx
-                namespace: ingress-nginx
-              - appName: cluster-autoscaler
-                namespace: kube-system
-              - appName: kubernetes-dashboard
-                namespace: kubernetes-dashboard
+              - appName: external-secrets
+                namespace: kube-infra-vault
   strategy:
     type: RollingSync
     rollingSync:
@@ -28,14 +22,14 @@ spec:
             - key: appName
               operator: In
               values:
-                - metrics-server
-                - ingress-nginx
-        - matchExpressions:
-            - key: appName
-              operator: In
-              values:
-                - cluster-autoscaler
-                - kubernetes-dashboard
+                - external-secrets
+                # - ingress-nginx
+        # - matchExpressions:
+        #     - key: appName
+        #       operator: In
+        #       values:
+        #         - cluster-autoscaler
+        #         - kubernetes-dashboard
   goTemplate: true
   template:
     metadata:
