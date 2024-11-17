@@ -7,30 +7,30 @@ spec:
     - matrix:
         generators:
           - clusters: {}
-              # selector:
-              #   matchLabels:
-              #     environment: dev
+              selector:
+                matchLabels:
+                  environment: dev
           - list:
               elements:
               - appName: external-secrets
                 namespace: kube-infra-vault
-  # strategy:
-  #   type: RollingSync
-  #   rollingSync:
-  #     steps:
-  #       - matchExpressions:
-  #           - key: appName
-  #             operator: In
-  #             values:
-  #               - external-secrets
-  #               # - ingress-nginx
-  #       # - matchExpressions:
-  #       #     - key: appName
-  #       #       operator: In
-  #       #       values:
-  #       #         - cluster-autoscaler
-  #       #         - kubernetes-dashboard
-  # goTemplate: true
+  strategy:
+    type: RollingSync
+    rollingSync:
+      steps:
+        - matchExpressions:
+            - key: appName
+              operator: In
+              values:
+                - external-secrets
+                # - ingress-nginx
+        # - matchExpressions:
+        #     - key: appName
+        #       operator: In
+        #       values:
+        #         - cluster-autoscaler
+        #         - kubernetes-dashboard
+  goTemplate: true
   template:
     metadata:
       name: '{{.name}}-{{.appName}}'
@@ -49,7 +49,7 @@ spec:
         helm:
           releaseName: '{{.appName}}'
           valueFiles:
-            - "../../{{.appName}}/values-{{.metadata.labels.env}}.yaml"
+            - "values-{{.metadata.labels.env}}.yaml"
             # - "../../{{.appName}}/values-{{.metadata.labels.env}}-{{.metadata.labels.label}}.yaml"
       destination:
         server: https://kubernetes.default.svc
