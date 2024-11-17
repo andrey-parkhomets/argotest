@@ -33,6 +33,7 @@ dex:
   logLevel: "debug"
 configs:
   cm:
+    applicationsetcontroller.enable.progressive.syncs: true
     application.resourceTrackingMethod: "annotation+label"
     url: "https://argocd.local/argocd"
     create: true
