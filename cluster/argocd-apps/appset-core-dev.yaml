@@ -58,5 +58,7 @@ spec:
             # - "values-{{.metadata.labels.env}}.yaml"
             # - "../../{{.appName}}/values-{{.metadata.labels.env}}-{{.metadata.labels.label}}.yaml"
       destination:
-        server: https://kubernetes.default.svc
-        namespace: argocd
+        server: {{.cluster}}
+        namespace: {{.namespace}}
+      syncPolicy:
+        automated: {}
