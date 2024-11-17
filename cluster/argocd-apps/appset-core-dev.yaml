@@ -9,7 +9,7 @@ spec:
           - clusters:
               selector:
                 matchLabels:
-                  environment: dev
+                  env: dev
           - list:
               elements:
               - appName: external-secrets
