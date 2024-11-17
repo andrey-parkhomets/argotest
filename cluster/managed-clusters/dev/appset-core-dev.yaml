@@ -49,7 +49,7 @@ spec:
       annotations:
         team: '{{.metadata.annotations.team}}' # Use team annotation
     spec:
-      project: root
+      project: project-dev
       source:
         repoURL: https://github.com/andrey-parkhomets/argotest.git
         targetRevision: HEAD
