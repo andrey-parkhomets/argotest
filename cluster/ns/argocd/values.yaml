@@ -96,7 +96,7 @@ server:
       nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
       nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
       # nginx.ingress.kubernetes.io/rewrite-target: /$1
-    hostname:  argocd.local
+    # hostname:  argocd.local
     path: /argocd
     # pathType: ImplementationSpecific
     # extraHosts: 
