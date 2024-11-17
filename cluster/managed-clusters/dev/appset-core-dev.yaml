@@ -13,10 +13,10 @@ spec:
                   operator: In
                   values:
                   - dev
-                - key: color
-                  operator: In
-                  values:
-                  - green
+                # - key: color
+                #   operator: In
+                #   values:
+                #   - green
           - list:
               elements:
               - appName: external-secrets
