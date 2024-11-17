@@ -62,7 +62,7 @@ spec:
           valueFiles:
             - "values.yaml"
             - "values-{{.metadata.labels.env}}.yaml"
-            - "values-{{.metadata.labels.env}}-{{.metadata.labels.label}}.yaml"
+            - "values-{{.metadata.labels.env}}-{{.metadata.labels.color}}.yaml"
       destination:
         name: '{{.name}}'
         namespace: '{{.namespace}}'
