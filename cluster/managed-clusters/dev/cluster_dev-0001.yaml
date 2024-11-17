@@ -5,6 +5,8 @@ metadata:
   labels:
     argocd.argoproj.io/secret-type: cluster
     env: dev
+    site: wdc
+    label: green
 type: Opaque
 stringData:
   name: dev-0001  # Human-readable name for the cluster

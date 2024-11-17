@@ -1,0 +1,62 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: core-apps
+spec:
+  generators:
+    - matrix:
+        generators:
+          - clusters:
+              selector:
+                matchLabels:
+                  environment: dev
+          - list:
+              elements:
+              - appName: metrics-server
+                namespace: kube-system
+              - appName: ingress-nginx
+                namespace: ingress-nginx
+              - appName: cluster-autoscaler
+                namespace: kube-system
+              - appName: kubernetes-dashboard
+                namespace: kubernetes-dashboard
+  strategy:
+    type: RollingSync
+    rollingSync:
+      steps:
+        - matchExpressions:
+            - key: appName
+              operator: In
+              values:
+                - metrics-server
+                - ingress-nginx
+        - matchExpressions:
+            - key: appName
+              operator: In
+              values:
+                - cluster-autoscaler
+                - kubernetes-dashboard
+  goTemplate: true
+  template:
+    metadata:
+      name: '{{.cluster.name}}-{{.appName}}'
+      labels:
+        appName: '{{.appName}}'
+        site: '{{.cluster.metadata.labels.site}}' # Use cluster site label
+        environment: '{{.cluster.metadata.labels.environment}}' # Use environment label
+      annotations:
+        managedBy: '{{.cluster.metadata.annotations.team}}' # Use team annotation
+    spec:
+      project: root
+      source:
+        repoURL: https://github.com/andrey-parkhomets/argotest.git
+        targetRevision: HEAD
+        path: "managed-clusters-charts/{{.appName}}"
+        helm:
+          releaseName: '{{.appName}}'
+          valueFiles:
+            - "../../{{.appName}}/values-{{.cluster.metadata.labels.environment}}.yaml"
+            # - "../../{{.appName}}/values-{{.cluster.metadata.labels.environment}}-{{.cluster.metadata.labels.label}}.yaml"
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: argocd

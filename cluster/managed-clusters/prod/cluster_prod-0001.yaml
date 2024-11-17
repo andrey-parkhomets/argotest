@@ -5,6 +5,8 @@ metadata:
   labels:
     argocd.argoproj.io/secret-type: cluster
     env: prod
+    site: wdc
+    label: green
 type: Opaque
 stringData:
   name: prod-0001  # Human-readable name for the cluster
