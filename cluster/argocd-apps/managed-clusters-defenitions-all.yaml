@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: managed-clusters-all
+  name: managed-clusters-defenitions-all
   namespace: argocd
 spec:
   goTemplate: true
@@ -11,10 +11,10 @@ spec:
       repoURL: https://github.com/andrey-parkhomets/argotest.git
       revision: HEAD
       directories:
-      - path: cluster/managed-clusters/*
+      - path: cluster/managed-clusters-defenitions/*
   template:
     metadata:
-      name: 'managed-clusters-{{.path.basename}}'
+      name: 'managed-clusters-defenitions-{{.path.basename}}'
     spec:
       project: "root"
       source:
