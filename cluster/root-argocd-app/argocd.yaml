@@ -18,7 +18,7 @@ spec:
       selfHeal: true
       allowEmpty: true
     syncOptions:
-    - Retry=true
+    - Retry=false
     - PrunePropagationPolicy=orphan
     retry:
       limit: 5 # Maximum number of retries
