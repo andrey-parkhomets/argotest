@@ -7,7 +7,8 @@ metadata:
     env: dev
     site: wdc
     color: green
-  annotations: dream-team@example.com
+  annotations: 
+    team: dream-team@example.com
 type: Opaque
 stringData:
   name: dev-0001  # Human-readable name for the cluster
