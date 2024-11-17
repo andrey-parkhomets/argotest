@@ -58,7 +58,7 @@ spec:
             # - "values-{{.metadata.labels.env}}.yaml"
             # - "../../{{.appName}}/values-{{.metadata.labels.env}}-{{.metadata.labels.label}}.yaml"
       destination:
-        server: {{.name}}
+        server: {{.server}}
         namespace: {{.namespace}}
       syncPolicy:
         automated: {}
