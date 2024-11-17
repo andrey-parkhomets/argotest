@@ -49,7 +49,8 @@ spec:
         helm:
           releaseName: '{{.appName}}'
           valueFiles:
-            - "values-{{.metadata.labels.env}}.yaml"
+            - "values.yaml"
+            # - "values-{{.metadata.labels.env}}.yaml"
             # - "../../{{.appName}}/values-{{.metadata.labels.env}}-{{.metadata.labels.label}}.yaml"
       destination:
         server: https://kubernetes.default.svc
