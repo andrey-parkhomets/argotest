@@ -16,4 +16,4 @@ spec:
     name: 'dev-*'
   orphanedResources:
     warn: true
-permitOnlyProjectScopedClusters: true
+  permitOnlyProjectScopedClusters: true
