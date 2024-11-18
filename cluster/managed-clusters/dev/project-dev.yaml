@@ -16,4 +16,4 @@ spec:
     name: '*'
   orphanedResources:
     warn: true
-  # permitOnlyProjectScopedClusters: true
+  permitOnlyProjectScopedClusters: true
