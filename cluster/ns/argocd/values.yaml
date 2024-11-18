@@ -7,7 +7,7 @@ global:
   # -- Default domain used by all components
   ## Used for ingresses, certificates, SSO, notifications, etc.
   domain: argocd.local
-  additionalLabels: 
+  additionalLabels:
     argocd.argoproj.io/instance: argocd
 
 crds:
@@ -100,7 +100,7 @@ server:
     # hostname:  argocd.local
     path: /argocd
     # pathType: ImplementationSpecific
-    # extraHosts: 
+    # extraHosts:
     #   - name: argocd.local.192.168.105.13.nip.io
     #     path: "/(.*)"
     #   - name: 192.168.105.13.nip.io

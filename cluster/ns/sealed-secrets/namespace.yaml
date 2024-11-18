@@ -5,4 +5,4 @@ metadata:
   creationTimestamp: null
   name: sealed-secrets
   labels:
-    app: sealed-secrets 
+    app: sealed-secrets

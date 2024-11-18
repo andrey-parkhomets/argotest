@@ -17,7 +17,7 @@ rm -rf helm-charts/argo-cd-* helm-charts/sealed-secrets-*
 ku-apply CustomResourceDefinition
 
 exit_code=1
-until [[ $exit_code -eq 0 ]]; do 
+until [[ $exit_code -eq 0 ]]; do
     kustomize build --enable-helm . |kubectl apply --force=true --wait=true  -l app=sealed-secrets -f -
     exit_code=$?
 done
@@ -29,7 +29,7 @@ cd ../argocd
 bash -c ./update_secrets.sh
 
 exit_code=1
-until [[ $exit_code -eq 0 ]]; do 
+until [[ $exit_code -eq 0 ]]; do
     kustomize build --enable-helm . |kubectl apply --force=true --wait=true -f -
     exit_code=$?
 done
@@ -47,7 +47,7 @@ sleep 10
 # sleep 5
 argocd login --core
 kubectl config set-context --current --namespace=argocd
-argocd app list 
+argocd app list
 argocd app get argocd/root-argocd-app --hard-refresh
 argocd app wait root-argocd-app --sync --health
 # argocd app sync argocd --kube-context argocd --server-side --apply-out-of-sync-only --timeout 50

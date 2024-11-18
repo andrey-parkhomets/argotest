@@ -16,4 +16,3 @@ sources:
 - https://github.com/emberstack/docker-azure-pipelines-agent
 type: application
 version: 2.2.26
-

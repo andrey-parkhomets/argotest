@@ -15,7 +15,7 @@ kubeseal --namespace argocd \
  --controller-name sealed-secrets \
  --name argocd-oidc-secret \
  --raw --from-file /dev/stdin)
-yq -i e  '.oidc.oauth.encryptedClientId |= "'"$encryptedClientId"'"' values_my-argocd-secrets.yaml 
+yq -i e  '.oidc.oauth.encryptedClientId |= "'"$encryptedClientId"'"' values_my-argocd-secrets.yaml
 git add values_my-argocd-secrets.yaml
 git commit -m 'update sealed secrets values'
 git push

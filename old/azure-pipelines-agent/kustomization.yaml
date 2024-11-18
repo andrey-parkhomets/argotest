@@ -53,4 +53,3 @@ resources:
   - ./sealed-secret.yaml
   - ./azure-pipelines-agent/templates/serviceaccount.yaml
   - ./azure-pipelines-agent/templates/statefulset.yaml
-
