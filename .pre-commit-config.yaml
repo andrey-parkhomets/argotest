@@ -46,3 +46,9 @@ repos:
     rev: v0.19.1
     hooks:
       - id: gitlint
+  - repo: https://github.com/andrey-parkhomets/kubeconform-precommit-hook
+    rev: e81fa175286f8c36c53542784b0336679d6af3d4
+    hooks:
+      - id: kubeconform
+        args:
+          - -p./
