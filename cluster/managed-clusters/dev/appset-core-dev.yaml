@@ -23,6 +23,8 @@ spec:
                 namespace: kube-infra-vault
               - appName: bla-bla
                 namespace: bla-bla
+              - appName: new-new
+                namespace: new-new
   ignoreApplicationDifferences:
   - jsonPointers:
     - /spec/syncPolicy
@@ -36,12 +38,11 @@ spec:
               values:
                 - external-secrets
                 - bla-bla
-        # - matchExpressions:
-        #     - key: appName
-        #       operator: In
-        #       values:
-        #         - cluster-autoscaler
-        #         - kubernetes-dashboard
+        - matchExpressions:
+            - key: appName
+              operator: In
+              values:
+                - new-new
   goTemplate: true
   template:
     metadata:
