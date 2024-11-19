@@ -12,7 +12,7 @@ spec:
                 - key: env
                   operator: In
                   values:
-                  - xxx
+                  - dev
                 # - key: color
                 #   operator: In
                 #   values:
@@ -75,7 +75,7 @@ spec:
         - Retry=true
         - ApplyOutOfSyncOnly=true
         - FailOnSharedResource=true
-        - PrunePropagationPolicy=orphan
+        # - PrunePropagationPolicy=orphan
         retry:
           limit: 5 # Maximum number of retries
           backoff:
