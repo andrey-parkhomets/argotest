@@ -1,0 +1,93 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: appset-dev-team-abc
+spec:
+  generators:
+    - matrix:
+        generators:
+          - clusters:
+              selector:
+                matchExpressions:
+                - key: env
+                  operator: In
+                  values:
+                  - dev
+                # - key: color
+                #   operator: In
+                #   values:
+                #   - green
+          - list:
+              elements:
+              - appName: foo-bar
+                namespace: foo-bar
+              - appName: alpfa-alpfa
+                namespace: alpfa-alpfa
+  ignoreApplicationDifferences:
+  - jsonPointers:
+    - /spec/syncPolicy
+  strategy:
+    type: RollingSync
+    rollingSync:
+      steps:
+        - matchExpressions:
+            - key: appName
+              operator: In
+              values:
+                - foo-bar
+        - matchExpressions:
+            - key: appName
+              operator: In
+              values:
+                - alpfa-alpfa
+  goTemplate: true
+  template:
+    metadata:
+      name: '{{.appName}}-{{.metadata.labels.env}}-{{.metadata.labels.color}}'
+      labels:
+        appName: '{{.appName}}'
+        site: '{{.metadata.labels.site}}'
+        env: '{{.metadata.labels.env}}'
+        color: '{{.metadata.labels.color}}'
+      annotations:
+        team: '{{.metadata.annotations.team}}' # Use team annotation
+    spec:
+      project: project-dev
+      source:
+        repoURL: https://github.com/andrey-parkhomets/argotest.git
+        targetRevision: HEAD
+        path: "cluster/managed-k8s-charts/{{.appName}}"
+        helm:
+          releaseName: '{{.appName}}'
+          valueFiles:
+            - "values.yaml"
+            - "values-{{.metadata.labels.env}}.yaml"
+            - "values-{{.metadata.labels.env}}-{{.metadata.labels.color}}.yaml"
+      destination:
+        name: '{{.name}}'
+        namespace: '{{.namespace}}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+          allowEmpty: true
+        syncOptions:
+        - Retry=true
+        - ApplyOutOfSyncOnly=true
+        - FailOnSharedResource=true
+        - PrunePropagationPolicy=orphan
+        retry:
+          limit: 5 # Maximum number of retries
+          backoff:
+            duration: 5s # Initial retry interval
+            factor: 2 # Multiplication factor for the backoff
+            maxDuration: 1m # Maximum retry interval
+  syncPolicy:
+    # Prevents ApplicationSet controller from modifying or deleting Applications
+    # applicationsSync: create-only
+
+    # Prevents ApplicationSet controller from deleting Applications. Update is allowed
+    applicationsSync: create-update
+
+    # Prevents ApplicationSet controller from modifying Applications. Delete is allowed.
+    # applicationsSync: create-delete

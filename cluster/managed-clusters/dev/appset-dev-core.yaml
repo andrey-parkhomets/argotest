@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: appset-core-dev
+  name: appset-dev-core
 spec:
   generators:
     - matrix:
