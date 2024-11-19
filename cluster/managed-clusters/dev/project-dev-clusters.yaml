@@ -13,7 +13,7 @@ spec:
     kind: '*'
   destinations:
   - namespace: '*'
-    name: 'dev-0001'
+    name: dev-0001
   - namespace: '*'
     name: 'dev-0002'
   orphanedResources:
