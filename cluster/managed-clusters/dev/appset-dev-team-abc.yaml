@@ -43,6 +43,7 @@ spec:
   goTemplate: true
   template:
     metadata:
+      finalizers: []
       name: '{{.appName}}-{{.metadata.labels.env}}-{{.metadata.labels.color}}'
       labels:
         appName: '{{.appName}}'
