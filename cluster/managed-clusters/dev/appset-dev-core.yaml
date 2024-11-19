@@ -36,13 +36,15 @@ spec:
             - key: appName
               operator: In
               values:
-                - new-new
+                - external-secrets
+                - bla-bla
+          maxUpdate: 1
         - matchExpressions:
             - key: appName
               operator: In
               values:
-                - external-secrets
-                - bla-bla
+                - new-new
+          maxUpdate: 1
 
   goTemplate: true
   template:
