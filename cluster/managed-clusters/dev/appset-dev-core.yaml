@@ -32,11 +32,11 @@ spec:
     type: RollingSync
     rollingSync:
       steps:
-        - matchExpressions:
-            - key: appName
-              operator: In
-              values:
-                - new-new
+        # - matchExpressions:
+        #     - key: appName
+        #       operator: In
+        #       values:
+        #         - new-new
         - matchExpressions:
             - key: appName
               operator: In

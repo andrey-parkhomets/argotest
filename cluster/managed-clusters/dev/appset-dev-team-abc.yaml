@@ -12,7 +12,7 @@ spec:
                 - key: env
                   operator: In
                   values:
-                  - dev
+                  - xxx
                 # - key: color
                 #   operator: In
                 #   values:
