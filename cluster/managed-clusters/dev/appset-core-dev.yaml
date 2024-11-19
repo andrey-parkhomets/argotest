@@ -21,6 +21,8 @@ spec:
               elements:
               - appName: external-secrets
                 namespace: kube-infra-vault
+              - appName: bla-bla
+                namespace: bla-bla
   ignoreApplicationDifferences:
   - jsonPointers:
     - /spec/syncPolicy
@@ -33,7 +35,7 @@ spec:
               operator: In
               values:
                 - external-secrets
-                # - ingress-nginx
+                - bla-bla
         # - matchExpressions:
         #     - key: appName
         #       operator: In
