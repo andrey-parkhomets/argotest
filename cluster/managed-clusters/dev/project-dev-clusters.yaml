@@ -13,7 +13,9 @@ spec:
     kind: '*'
   destinations:
   - namespace: '*'
-    name: '*'
+    name: 'dev-0001'
+  - namespace: '*'
+    name: 'dev-0002'
   orphanedResources:
     warn: true
   permitOnlyProjectScopedClusters: true
