@@ -84,9 +84,9 @@ configs:
     policy.default: "role:readonly"
     scopes: '[groups, email]'
 server:
-  # autoscaling:
-  #   enabled: true
-  #   minReplicas: 2
+  autoscaling:
+    enabled: true
+    minReplicas: 2
   logLevel: "debug"
   ingress:
     enabled: true
@@ -98,19 +98,4 @@ server:
       nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
       nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
       # nginx.ingress.kubernetes.io/rewrite-target: /$1
-    # hostname:  argocd.local
     path: /argocd
-    # pathType: ImplementationSpecific
-    # extraHosts:
-    #   - name: argocd.local.192.168.105.13.nip.io
-    #     path: "/(.*)"
-    #   - name: 192.168.105.13.nip.io
-    #     path: "/(.*)"
-    # extraPaths:
-    #   - path: /api/dex/callback
-    #     pathType: Prefix
-    #     backend:
-    #       service:
-    #         name: argo-cd-argocd-server
-    #         port:
-    #           name: http
