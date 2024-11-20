@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: appset-dev-core
+  name: appset-dev-team-abc
 spec:
   generators:
     - matrix:
@@ -19,12 +19,10 @@ spec:
                 #   - green
           - list:
               elements:
-              - appName: external-secrets
-                namespace: kube-infra-vault
-              - appName: bla-bla
-                namespace: bla-bla
-              - appName: new-new
-                namespace: new-new
+              - appName: foo-bar
+                namespace: foo-bar
+              - appName: alpfa-alpfa
+                namespace: alpfa-alpfa
   ignoreApplicationDifferences:
   - jsonPointers:
     - /spec/syncPolicy
@@ -36,16 +34,12 @@ spec:
             - key: appName
               operator: In
               values:
-                - external-secrets
-                - bla-bla
-          maxUpdate: 1
+                - foo-bar
         - matchExpressions:
             - key: appName
               operator: In
               values:
-                - new-new
-          maxUpdate: 1
-
+                - alpfa-alpfa
   goTemplate: true
   template:
     metadata:
@@ -63,7 +57,7 @@ spec:
       source:
         repoURL: https://github.com/andrey-parkhomets/argotest.git
         targetRevision: HEAD
-        path: "cluster/managed-k8s-charts/{{.appName}}"
+        path: "cluster/k8s-charts/{{.appName}}"
         helm:
           releaseName: '{{.appName}}'
           valueFiles:

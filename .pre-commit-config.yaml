@@ -52,3 +52,7 @@ repos:
       - id: kubeconform
         args:
           - -p./
+        exclude: |
+            (?x)(
+                Chart.yaml|values.yaml
+            )$
