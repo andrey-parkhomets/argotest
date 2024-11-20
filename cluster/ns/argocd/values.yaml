@@ -17,8 +17,8 @@ crds:
 # redis-ha:
 #   enabled: true
 
-# controller:
-#   replicas: 1
+controller:
+  replicas: 3
 
 # repoServer:
 #   autoscaling:
