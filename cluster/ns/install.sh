@@ -26,6 +26,7 @@ kubectl -n sealed-secrets wait --for=condition=Available=true deployment/sealed-
 
 rm -rf helm-charts/
 cd ../argocd
+rm -rf helm-charts/
 bash -c ./update_secrets.sh
 
 exit_code=1
