@@ -12,7 +12,7 @@ spec:
       revision: HEAD
       directories:
       - path: cluster/managed-clusters/*
-      - path: cluster/managed-clusters/*/team-abc/*
+      - path: cluster/managed-clusters/*/team-abc
   template:
     metadata:
       finalizers: []
