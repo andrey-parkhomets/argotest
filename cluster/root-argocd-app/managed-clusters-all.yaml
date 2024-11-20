@@ -11,12 +11,12 @@ spec:
       repoURL: https://github.com/andrey-parkhomets/argotest.git
       revision: HEAD
       directories:
-      - path: cluster/managed-clusters/*
-      - path: cluster/managed-clusters/*/team-abc
+      - path: cluster/managed/*
+      - path: cluster/managed/*/team-abc
   template:
     metadata:
       finalizers: []
-      name: 'managed-clusters-{{.path.basename}}'
+      name: 'managed-{{.path.basename}}'
     spec:
       project: "root"
       source:
