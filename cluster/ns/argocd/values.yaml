@@ -1,5 +1,5 @@
 #https://github.com/argoproj/argo-helm/blob/main/charts/argo-cd/values.yaml
-#https://github.com/argoproj/argo-helm/blob/argo-cd-7.5.2/charts/argo-cd/values.yaml
+#https://github.com/argoproj/argo-helm/blob/argo-cd-7.7.3/charts/argo-cd/values.yaml
 global:
   logging:
     level: "debug"
@@ -73,6 +73,7 @@ configs:
     server.insecure: true
     server.rootpath: "/argocd"
     server.basehref: "/argocd"
+    controller.diff.server.side: "true"
   rbac:
     policy.csv: |
       p, role:admin, applications, delete, root/argocd, deny
