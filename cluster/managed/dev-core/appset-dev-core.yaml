@@ -56,7 +56,7 @@ spec:
         helm:
           valueFiles:
             - values.yaml
-          {{- range $valueFile := .valueFiles }}
+          {{- range $valueFile := .extraValueFiles }}
             - {{ $valueFile }}
           {{- end }}
   template:
