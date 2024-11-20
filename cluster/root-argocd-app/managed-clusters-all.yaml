@@ -12,8 +12,10 @@ spec:
       revision: HEAD
       directories:
       - path: cluster/managed-clusters/*
+      - path: cluster/managed-clusters/*/team-abc/*
   template:
     metadata:
+      finalizers: []
       name: 'managed-clusters-{{.path.basename}}'
     spec:
       project: "root"
