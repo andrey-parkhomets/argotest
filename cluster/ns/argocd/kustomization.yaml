@@ -4,15 +4,16 @@ kind: Kustomization
 # sortOptions:
 #   order: fifo
 
+namespace: argocd
 helmGlobals:
   chartHome: helm-charts
 
 helmCharts:
 
-- name: my-argocd-secrets
-  namespace: argocd
-  releaseName: argocd
-  valuesFile: values_my-argocd-secrets.yaml
+# - name: my-argocd-secrets
+#   namespace: argocd
+#   releaseName: argocd
+#   valuesFile: values_my-argocd-secrets.yaml
 
 - name: argo-cd
   namespace: argocd
@@ -22,9 +23,10 @@ helmCharts:
   valuesFile: values.yaml
 
 resources:
-- namespace.yaml
-- overlays/argo-only.yaml
-- overlays/root-argocd-app.yaml
+# - namespace.yaml
+- SealedSecret_argocd-oidc-secret.yaml
+- project-argo-only.yaml
+- root-argocd-app.yaml
 
 # patchesStrategicMerge:
 # - |-
