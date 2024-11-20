@@ -73,7 +73,7 @@ configs:
     server.insecure: true
     server.rootpath: "/argocd"
     server.basehref: "/argocd"
-    # controller.diff.server.side: "true"
+    controller.diff.server.side: "true"
   rbac:
     policy.csv: |
       p, role:admin, applications, delete, root/argocd, deny
