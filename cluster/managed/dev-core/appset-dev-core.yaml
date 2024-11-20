@@ -21,6 +21,9 @@ spec:
               elements:
               - appName: external-secrets
                 namespace: kube-infra-vault
+                extraValueFiles:
+                  - values-{{.metadata.labels.env}}.yaml
+                  - values-{{.metadata.labels.env}}-{{.metadata.labels.color}}.yaml
               - appName: bla-bla
                 namespace: bla-bla
               - appName: new-new
@@ -47,6 +50,15 @@ spec:
           maxUpdate: 1
 
   goTemplate: true
+  templatePatch: |
+    spec:
+      source:
+        helm:
+          valueFiles:
+            - values.yaml
+          {{- range $valueFile := .valueFiles }}
+            - {{ $valueFile }}
+          {{- end }}
   template:
     metadata:
       finalizers: []
@@ -64,12 +76,12 @@ spec:
         repoURL: https://github.com/andrey-parkhomets/argotest.git
         targetRevision: HEAD
         path: "cluster/k8s-charts/{{.appName}}"
-        helm:
-          releaseName: '{{.appName}}'
-          valueFiles:
-            - "values.yaml"
-            - "values-{{.metadata.labels.env}}.yaml"
-            - "values-{{.metadata.labels.env}}-{{.metadata.labels.color}}.yaml"
+        # helm:
+        #   releaseName: '{{.appName}}'
+        #   valueFiles:
+        #     - "values.yaml"
+        #     - "values-{{.metadata.labels.env}}.yaml"
+        #     - "values-{{.metadata.labels.env}}-{{.metadata.labels.color}}.yaml"
       destination:
         name: '{{.name}}'
         namespace: '{{.namespace}}'
