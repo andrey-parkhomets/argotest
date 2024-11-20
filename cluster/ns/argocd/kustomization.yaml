@@ -23,7 +23,7 @@ helmCharts:
   valuesFile: values.yaml
 
 resources:
-# - namespace.yaml
+- namespace.yaml
 - SealedSecret_argocd-oidc-secret.yaml
 - project-argo-only.yaml
 - root-argocd-app.yaml

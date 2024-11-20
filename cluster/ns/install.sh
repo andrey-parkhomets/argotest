@@ -12,7 +12,7 @@ function ku-apply(){
     done
 }
 cd sealed-secrets
-rm -rf helm-charts/argo-cd-* helm-charts/sealed-secrets-*
+rm -rf helm-charts
 
 ku-apply CustomResourceDefinition
 
@@ -58,4 +58,4 @@ argocd app wait root-argocd-app --sync --health
 # kubectl rollout restart deployment/argocd-redis -n argocd
 
 
-rm -rf helm-charts/argo-cd-* helm-charts/sealed-secrets-*
+rm -rf helm-charts
