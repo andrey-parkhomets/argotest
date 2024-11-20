@@ -24,7 +24,7 @@ done
 
 kubectl -n sealed-secrets wait --for=condition=Available=true deployment/sealed-secrets
 
-
+rm -rf helm-charts/
 cd ../argocd
 bash -c ./update_secrets.sh
 
@@ -56,6 +56,3 @@ argocd app wait root-argocd-app --sync --health
 # kubectl rollout restart deployment/sealed-secrets -n sealed-secrets
 # kubectl rollout restart deployment/argocd-dex-server -n argocd
 # kubectl rollout restart deployment/argocd-redis -n argocd
-
-
-rm -rf helm-charts
