@@ -3,6 +3,8 @@ kind: ApplicationSet
 metadata:
   name: appset-dev-core
 spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
   generators:
     - matrix:
         generators:
@@ -21,13 +23,19 @@ spec:
               elements:
               - appName: external-secrets
                 namespace: kube-infra-vault
-                extraValueFiles:
-                  - values-{{.metadata.labels.env}}.yaml
-                  - values-{{.metadata.labels.env}}-{{.metadata.labels.color}}.yaml
+                # extraValueFiles:
+                #   - values-{{.metadata.labels.env}}.yaml
+                #   - values-{{.metadata.labels.env}}-{{.metadata.labels.color}}.yaml
+
               - appName: bla-bla
                 namespace: bla-bla
-              - appName: new-new
-                namespace: new-new
+
+          # - git:
+          #     repoURL: https://github.com/andrey-parkhomets/argotest.git
+          #     revision: HEAD
+          #     files:
+          #       - path: k8s-charts/{{appName}}/application-parameters.yaml # Dynamic path per application
+
   ignoreApplicationDifferences:
   - jsonPointers:
     - /spec/syncPolicy
@@ -49,16 +57,18 @@ spec:
                 - new-new
           maxUpdate: 1
 
-  goTemplate: true
-  templatePatch: |
-    spec:
-      source:
-        helm:
-          valueFiles:
-            - values.yaml
-          {{- range $valueFile := .extraValueFiles }}
-            - {{ $valueFile }}
-          {{- end }}
+
+  # templatePatch: |
+  #   spec:
+  #     source:
+  #       helm:
+  #         valueFiles:
+  #           - values.yaml
+  #           {{- range .extraValueFiles }}
+  #           - {{ . }}
+  #           {{- end }}
+
+
   template:
     metadata:
       finalizers: []
@@ -76,12 +86,25 @@ spec:
         repoURL: https://github.com/andrey-parkhomets/argotest.git
         targetRevision: HEAD
         path: "cluster/k8s-charts/{{.appName}}"
-        # helm:
+        helm:
+          parameters:
+            # - name: app.image.tag
+            #   value: {{.Values.app.dev.green.image.tag | quote}}
+            #   forceString: true
+            # - name: app.commit.sha
+            #   value: {{ .Values.app.dev.green.commit.sha | quote}}
+            #   forceString: true
+            - name: app.color
+              value: "{{.metadata.labels.color}}" #color
+              forceString: true
+            - name: app.env
+              value: "{{.metadata.labels.env}}" #env
+              forceString: true
         #   releaseName: '{{.appName}}'
-        #   valueFiles:
-        #     - "values.yaml"
-        #     - "values-{{.metadata.labels.env}}.yaml"
-        #     - "values-{{.metadata.labels.env}}-{{.metadata.labels.color}}.yaml"
+          valueFiles:
+            - "values.yaml"
+            - "values-{{.metadata.labels.env}}.yaml"
+            - "values-{{.metadata.labels.env}}-{{.metadata.labels.color}}.yaml"
       destination:
         name: '{{.name}}'
         namespace: '{{.namespace}}'
