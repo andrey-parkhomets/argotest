@@ -1,0 +1,7 @@
+kubectl config set-context --current --namespace=argocd
+argocd login argocd.local --sso --skip-test-tls --insecure --grpc-web --grpc-web-root-path /argocd
+
+argocd admin settings validate --load-cluster-settings=true
+argocd admin settings rbac validate --namespace argocd
+
+argocd admin cluster stats

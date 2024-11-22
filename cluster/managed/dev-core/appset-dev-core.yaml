@@ -11,24 +11,25 @@ spec:
           - clusters:
               selector:
                 matchExpressions:
-                - key: env
-                  operator: In
-                  values:
-                  - dev
-                # - key: color
-                #   operator: In
-                #   values:
-                #   - green
+                - {key: env, operator: In, values: [dev]}
+                - {key: color, operator: In, values: [green]}
           - list:
               elements:
               - appName: external-secrets
+                appChartRepoURL: https://github.com/andrey-parkhomets/argotest.git
+                apptargetRevision: HEAD
+                # chart: ''
                 namespace: kube-infra-vault
+                valueRepoURL: https://github.com/andrey-parkhomets/argotest.git
+                valuetargetRevision: HEAD
                 # extraValueFiles:
-                #   - values-{{.metadata.labels.env}}.yaml
-                #   - values-{{.metadata.labels.env}}-{{.metadata.labels.color}}.yaml
-
-              - appName: bla-bla
-                namespace: bla-bla
+                  # - values-{{.metadata.labels.env}}.yaml
+                  # - values-{{.metadata.labels.env}}-{{.metadata.labels.color}}.yaml
+                  # - "cluster/k8s-charts/{{ .appName }}/values.yaml"
+                  # - "cluster/k8s-charts/{{ .appName }}/values-{{.metadata.labels.env}}.yaml"
+                  # - "cluster/k8s-charts/{{ .appName }}/values-{{.metadata.labels.env}}-{{.metadata.labels.color}}.yaml"
+              # - appName: bla-bla
+              #   namespace: bla-bla
 
           # - git:
           #     repoURL: https://github.com/andrey-parkhomets/argotest.git
@@ -57,18 +58,6 @@ spec:
                 - new-new
           maxUpdate: 1
 
-
-  # templatePatch: |
-  #   spec:
-  #     source:
-  #       helm:
-  #         valueFiles:
-  #           - values.yaml
-  #           {{- range .extraValueFiles }}
-  #           - {{ . }}
-  #           {{- end }}
-
-
   template:
     metadata:
       finalizers: []
@@ -82,29 +71,34 @@ spec:
         team: '{{.metadata.annotations.team}}' # Use team annotation
     spec:
       project: project-dev-clusters
-      source:
-        repoURL: https://github.com/andrey-parkhomets/argotest.git
-        targetRevision: HEAD
-        path: "cluster/k8s-charts/{{.appName}}"
-        helm:
-          parameters:
-            # - name: app.image.tag
-            #   value: {{.Values.app.dev.green.image.tag | quote}}
-            #   forceString: true
-            # - name: app.commit.sha
-            #   value: {{ .Values.app.dev.green.commit.sha | quote}}
-            #   forceString: true
-            - name: app.color
-              value: "{{.metadata.labels.color}}" #color
-              forceString: true
-            - name: app.env
-              value: "{{.metadata.labels.env}}" #env
-              forceString: true
-        #   releaseName: '{{.appName}}'
-          valueFiles:
-            - "values.yaml"
-            - "values-{{.metadata.labels.env}}.yaml"
-            - "values-{{.metadata.labels.env}}-{{.metadata.labels.color}}.yaml"
+      sources:
+        - repoURL: https://github.com/andrey-parkhomets/argotest.git
+          targetRevision: HEAD
+          ref: values
+
+        - repoURL: https://github.com/andrey-parkhomets/argotest.git
+          # chart: '{{.chart}}'
+          targetRevision: HEAD
+          # path: "cluster/k8s-charts/{{.appName}}"
+          helm:
+            parameters:
+              # - name: app.image.tag
+              #   value: {{.Values.app.dev.green.image.tag | quote}}
+              #   forceString: true
+              # - name: app.commit.sha
+              #   value: {{ .Values.app.dev.green.commit.sha | quote}}
+              #   forceString: true
+              - name: app.color
+                value: "{{.metadata.labels.color}}" #color
+                forceString: true
+              - name: app.env
+                value: "{{.metadata.labels.env}}" #env
+                forceString: true
+          #   releaseName: '{{.appName}}'
+            valueFiles:
+              - "$values/cluster/k8s-charts/{{.appName}}/values.yaml"
+              - "$values/cluster/k8s-charts/{{.appName}}/values-{{.metadata.labels.env}}.yaml"
+              - "$values/cluster/k8s-charts/{{.appName}}/values-{{.metadata.labels.env}}-{{.metadata.labels.color}}.yaml"
       destination:
         name: '{{.name}}'
         namespace: '{{.namespace}}'
