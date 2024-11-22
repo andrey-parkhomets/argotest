@@ -81,19 +81,19 @@ spec:
           targetRevision: HEAD
           # path: "cluster/k8s-charts/{{.appName}}"
           helm:
-            parameters:
-              # - name: app.image.tag
-              #   value: {{.Values.app.dev.green.image.tag | quote}}
-              #   forceString: true
-              # - name: app.commit.sha
-              #   value: {{ .Values.app.dev.green.commit.sha | quote}}
-              #   forceString: true
-              - name: app.color
-                value: "{{.metadata.labels.color}}" #color
-                forceString: true
-              - name: app.env
-                value: "{{.metadata.labels.env}}" #env
-                forceString: true
+            # parameters:
+            #   # - name: app.image.tag
+            #   #   value: {{.Values.app.dev.green.image.tag | quote}}
+            #   #   forceString: true
+            #   # - name: app.commit.sha
+            #   #   value: {{ .Values.app.dev.green.commit.sha | quote}}
+            #   #   forceString: true
+            #   - name: app.color
+            #     value: "{{.metadata.labels.color}}" #color
+            #     forceString: true
+            #   - name: app.env
+            #     value: "{{.metadata.labels.env}}" #env
+            #     forceString: true
           #   releaseName: '{{.appName}}'
             valueFiles:
               - "$values/cluster/k8s-charts/{{.appName}}/values.yaml"
