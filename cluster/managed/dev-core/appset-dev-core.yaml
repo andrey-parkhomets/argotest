@@ -73,13 +73,9 @@ spec:
       project: project-dev-clusters
       sources:
         - repoURL: https://github.com/andrey-parkhomets/argotest.git
-          targetRevision: HEAD
-          ref: values
-
-        - repoURL: https://github.com/andrey-parkhomets/argotest.git
           # chart: '{{.chart}}'
           targetRevision: HEAD
-          # path: "cluster/k8s-charts/{{.appName}}"
+          path: "cluster/k8s-charts/{{ .appName }}"
           helm:
             # parameters:
             #   # - name: app.image.tag
@@ -99,9 +95,14 @@ spec:
               - "$values/cluster/k8s-charts/{{.appName}}/values.yaml"
               - "$values/cluster/k8s-charts/{{.appName}}/values-{{.metadata.labels.env}}.yaml"
               - "$values/cluster/k8s-charts/{{.appName}}/values-{{.metadata.labels.env}}-{{.metadata.labels.color}}.yaml"
+        - repoURL: https://github.com/andrey-parkhomets/argotest.git
+          targetRevision: HEAD
+          ref: values
       destination:
-        name: '{{.name}}'
-        namespace: '{{.namespace}}'
+        # name: '{{.name}}'
+        # namespace: '{{.namespace}}'
+        namespace: "{{ .namespace }}"
+        server: https://kubernetes.default.svc
       syncPolicy:
         automated:
           prune: true
