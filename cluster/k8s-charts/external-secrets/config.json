@@ -17,6 +17,24 @@
           "sha": "ac9dd64"
         }
       }
+    },
+    "prod": {
+      "blue": {
+        "image": {
+          "tag": "0.100.0"
+        },
+        "commit": {
+          "sha": "1ac9dd6"
+        }
+      },
+      "green": {
+        "image": {
+          "tag": "0.100.0"
+        },
+        "commit": {
+          "sha": "1ac9dd6"
+        }
+      }
     }
   }
 }

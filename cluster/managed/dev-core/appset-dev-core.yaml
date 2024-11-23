@@ -3,6 +3,7 @@ kind: ApplicationSet
 metadata:
   name: appset-dev-core
 spec:
+  # applyNestedSelectors: true
   goTemplate: true
   # goTemplateOptions: ["missingkey=error"]
   generators:
@@ -29,6 +30,9 @@ spec:
               revision: HEAD
               files:
                 - path: cluster/k8s-charts/{{.appName}}/config.json
+      selector:
+        matchExpressions:
+        - {key: name, operator: Exists}
 
   ignoreApplicationDifferences:
   - jsonPointers:
@@ -61,7 +65,7 @@ spec:
         env: '{{.metadata.labels.env}}'
         color: '{{.metadata.labels.color}}'
         autoSync: '{{or .autoSync "undefined"}}'
-        imageTag: '{{(or .app.dev.green.image.tag "latest")}}'
+        imageTag: '{{or .app.dev.green.image.tag "latest"}}'
       annotations:
         team: '{{.metadata.annotations.team}}' # Use team annotation
     spec:
@@ -70,32 +74,34 @@ spec:
         - repoURL: https://github.com/andrey-parkhomets/argotest.git
           # chart: '{{.chart}}'
           targetRevision: HEAD
-          path: "cluster/k8s-charts/{{ .appName }}"
+          path: "cluster/k8s-charts/{{.appName}}"
           helm:
+            values: |
+              {{ .|mustToPrettyJson }}
             parameters:
-              - name: app.image.tag
-                value: "{{.app.dev.green.image.tag}}"
-                forceString: true
-              # - name: app.commit.sha
-              #   value: {{.app.dev.green.commit.sha | quote}}
-              #   forceString: true
-              - name: app.color
-                value: "{{.metadata.labels.color}}" #color
-                forceString: true
-              - name: app.env
-                value: "{{.metadata.labels.env}}" #env
-                forceString: true
+            - name: app.image.tag
+              value: "{{.app.dev.green.image.tag}}"
+              forceString: true
+            - name: app.commit.sha
+              value: "{{.app.dev.green.commit.sha}}"
+              forceString: true
+            - name: app.color
+              value: "{{.metadata.labels.color}}" #color
+              forceString: true
+            - name: app.env
+              value: "{{.metadata.labels.env}}" #env
+              forceString: true
           #   releaseName: '{{.appName}}'
             valueFiles:
               - "$values/cluster/k8s-charts/{{.appName}}/values.yaml"
               - "$values/cluster/k8s-charts/{{.appName}}/values-{{.metadata.labels.env}}.yaml"
               - "$values/cluster/k8s-charts/{{.appName}}/values-{{.metadata.labels.env}}-{{.metadata.labels.color}}.yaml"
-        - repoURL: https://github.com/andrey-parkhomets/argotest.git
-          targetRevision: HEAD
+        - repoURL: "{{.valueRepoURL}}"
+          targetRevision: "{{.valuetargetRevision}}"
           ref: values
       destination:
         # name: '{{.name}}'
-        namespace: "{{ .namespace }}"
+        namespace: "{{.namespace}}"
         server: https://kubernetes.default.svc
 
       syncPolicy:
