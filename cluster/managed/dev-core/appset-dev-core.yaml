@@ -76,6 +76,8 @@ spec:
           targetRevision: HEAD
           path: "cluster/k8s-charts/{{.appName}}"
           helm:
+            # {{.|toPrettyJson}}
+             # dnsSuffixDig: {{dig "metadata" "annotations" "dnsSuffix" "empty" .}}
             values: |
               app:
                 {{.metadata.labels.env}}:
@@ -84,12 +86,13 @@ spec:
                       tag: {{ index . "app" .metadata.labels.env .metadata.labels.color "image" "tag" }}
                     commit:
                       sha: {{ index . "app" .metadata.labels.env .metadata.labels.color "commit" "sha" }}
-
                 labels:
-                  argocd.argoproj.io/instance: {{ .appName }}-{{.metadata.labels.env}}-{{.metadata.labels.color}}
-                namespace: {{ .namespace }}
-                # ingress:
-                #   dnsSuffix: {{dig "clusters" (index .metadata.annotations "my-org.com/dnsSuffix"") "not-defined-dnsSuffix" .}}
+                  argocd.argoproj.io/instance: {{.appName }}-{{.metadata.labels.env}}-{{.metadata.labels.color}}
+                namespace: {{.namespace}}
+                ingress:
+                  dnsSuffixIndex: {{index . "metadata" "annotations" "dnsSuffix"}}
+
+
             parameters:
             - name: app.image.tag
               value: "{{.app.dev.green.image.tag}}"
