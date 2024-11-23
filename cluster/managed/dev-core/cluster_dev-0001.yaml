@@ -8,7 +8,8 @@ metadata:
     site: wdc
     color: green
   annotations:
-    team: dream-team@example.com
+    "my-org.com/team": dream-team@example.com
+    "my-org.com/dnsSuffix": dev-0001.intranet.local
 type: Opaque
 stringData:
   name: dev-0001  # Human-readable name for the cluster
