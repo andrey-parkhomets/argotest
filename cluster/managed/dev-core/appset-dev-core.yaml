@@ -8,34 +8,27 @@ spec:
   generators:
     - matrix:
         generators:
-          - clusters:
-              selector:
-                matchExpressions:
-                - {key: env, operator: In, values: [dev]}
-                - {key: color, operator: In, values: [green]}
-          - list:
-              elements:
-              - appName: external-secrets
-                appChartRepoURL: https://github.com/andrey-parkhomets/argotest.git
-                apptargetRevision: HEAD
-                # chart: ''
-                namespace: kube-infra-vault
-                valueRepoURL: https://github.com/andrey-parkhomets/argotest.git
-                valuetargetRevision: HEAD
-                # extraValueFiles:
-                  # - values-{{.metadata.labels.env}}.yaml
-                  # - values-{{.metadata.labels.env}}-{{.metadata.labels.color}}.yaml
-                  # - "cluster/k8s-charts/{{ .appName }}/values.yaml"
-                  # - "cluster/k8s-charts/{{ .appName }}/values-{{.metadata.labels.env}}.yaml"
-                  # - "cluster/k8s-charts/{{ .appName }}/values-{{.metadata.labels.env}}-{{.metadata.labels.color}}.yaml"
-              # - appName: bla-bla
-              #   namespace: bla-bla
-
-          # - git:
-          #     repoURL: https://github.com/andrey-parkhomets/argotest.git
-          #     revision: HEAD
-          #     files:
-          #       - path: k8s-charts/{{appName}}/application-parameters.yaml # Dynamic path per application
+          - matrix:
+              generators:
+              - clusters:
+                  selector:
+                    matchExpressions:
+                    - {key: env, operator: In, values: [dev]}
+                    - {key: color, operator: In, values: [green]}
+              - list:
+                  elements:
+                  - appName: external-secrets
+                    appChartRepoURL: https://github.com/andrey-parkhomets/argotest.git
+                    apptargetRevision: HEAD
+                    # chart: ''
+                    namespace: kube-infra-vault
+                    valueRepoURL: https://github.com/andrey-parkhomets/argotest.git
+                    valuetargetRevision: HEAD
+          - git:
+              repoURL: https://github.com/andrey-parkhomets/argotest.git
+              revision: HEAD
+              files:
+                - path: cluster/k8s-charts/{{ .appName }}/config.json
 
   ignoreApplicationDifferences:
   - jsonPointers:
@@ -77,19 +70,19 @@ spec:
           targetRevision: HEAD
           path: "cluster/k8s-charts/{{ .appName }}"
           helm:
-            # parameters:
-            #   # - name: app.image.tag
-            #   #   value: {{.Values.app.dev.green.image.tag | quote}}
-            #   #   forceString: true
-            #   # - name: app.commit.sha
-            #   #   value: {{ .Values.app.dev.green.commit.sha | quote}}
-            #   #   forceString: true
-            #   - name: app.color
-            #     value: "{{.metadata.labels.color}}" #color
-            #     forceString: true
-            #   - name: app.env
-            #     value: "{{.metadata.labels.env}}" #env
-            #     forceString: true
+            parameters:
+              # - name: app.image.tag
+              #   value: {{.Values.app.dev.green.image.tag | quote}}
+              #   forceString: true
+              # - name: app.commit.sha
+              #   value: {{ .Values.app.dev.green.commit.sha | quote}}
+              #   forceString: true
+              - name: app.color
+                value: "{{.metadata.labels.color}}" #color
+                forceString: true
+              - name: app.env
+                value: "{{.metadata.labels.env}}" #env
+                forceString: true
           #   releaseName: '{{.appName}}'
             valueFiles:
               - "$values/cluster/k8s-charts/{{.appName}}/values.yaml"
@@ -100,15 +93,14 @@ spec:
           ref: values
       destination:
         # name: '{{.name}}'
-        # namespace: '{{.namespace}}'
         namespace: "{{ .namespace }}"
         server: https://kubernetes.default.svc
 
       syncPolicy:
         automated:
-          prune: true
-          selfHeal: true
-          allowEmpty: false
+          prune: true # Specifies if resources should be pruned during auto-syncing ( false by default ).
+          selfHeal: true # Specifies if partial app sync should be executed when resources are changed only in target Kubernetes cluster and no git change detected ( false by default ).
+          allowEmpty: false # Allows deleting all application resources during automatic syncing ( false by default ).
         syncOptions:
         - Retry=true
         - ApplyOutOfSyncOnly=true
