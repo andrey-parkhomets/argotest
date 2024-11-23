@@ -29,10 +29,10 @@ spec:
               repoURL: https://github.com/andrey-parkhomets/argotest.git
               revision: HEAD
               files:
-                - path: cluster/k8s-charts/{{.appName}}/config.json
-      selector:
-        matchExpressions:
-        - {key: name, operator: Exists}
+                - path: cluster/k8s-charts/{{.appName}}/config.yaml
+            # selector:
+            #   matchExpressions:
+            #   - {key: name, operator: Exists}
 
   ignoreApplicationDifferences:
   - jsonPointers:
@@ -77,7 +77,7 @@ spec:
           path: "cluster/k8s-charts/{{.appName}}"
           helm:
             values: |
-              {{ .|mustToPrettyJson }}
+              {{ .|toJson}}
             parameters:
             - name: app.image.tag
               value: "{{.app.dev.green.image.tag}}"
