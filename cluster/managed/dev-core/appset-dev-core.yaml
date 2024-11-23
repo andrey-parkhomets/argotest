@@ -61,7 +61,7 @@ spec:
         env: '{{.metadata.labels.env}}'
         color: '{{.metadata.labels.color}}'
         autoSync: '{{or .autoSync "undefined"}}'
-        imageTag: '{{(or .imageTag "latest")}}'
+        imageTag: '{{(or .app.dev.green.image.tag "latest")}}'
       annotations:
         team: '{{.metadata.annotations.team}}' # Use team annotation
     spec:
@@ -73,9 +73,9 @@ spec:
           path: "cluster/k8s-charts/{{ .appName }}"
           helm:
             parameters:
-              # - name: app.image.tag
-              #   value: {{.app.dev.green.image.tag | quote}}
-              #   forceString: true
+              - name: app.image.tag
+                value: "{{.app.dev.green.image.tag}}"
+                forceString: true
               # - name: app.commit.sha
               #   value: {{.app.dev.green.commit.sha | quote}}
               #   forceString: true
