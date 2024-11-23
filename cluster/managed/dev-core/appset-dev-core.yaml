@@ -123,12 +123,12 @@ spec:
             duration: 5s # Initial retry interval
             factor: 2 # Multiplication factor for the backoff
             maxDuration: 1m # Maximum retry interval
-  syncPolicy:
+  # syncPolicy:
     # Prevents ApplicationSet controller from modifying or deleting Applications
     # applicationsSync: create-only
 
     # Prevents ApplicationSet controller from deleting Applications. Update is allowed
-    applicationsSync: create-update
+    # applicationsSync: create-update
 
     # Prevents ApplicationSet controller from modifying Applications. Delete is allowed.
     # applicationsSync: create-delete
