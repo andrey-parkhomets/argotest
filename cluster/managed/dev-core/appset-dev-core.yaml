@@ -4,7 +4,7 @@ metadata:
   name: appset-dev-core
 spec:
   goTemplate: true
-  goTemplateOptions: ["missingkey=error"]
+  # goTemplateOptions: ["missingkey=error"]
   generators:
     - matrix:
         generators:
@@ -28,7 +28,7 @@ spec:
               repoURL: https://github.com/andrey-parkhomets/argotest.git
               revision: HEAD
               files:
-                - path: cluster/k8s-charts/{{ .appName }}/config.json
+                - path: cluster/k8s-charts/{{.appName}}/config.json
 
   ignoreApplicationDifferences:
   - jsonPointers:
@@ -60,6 +60,8 @@ spec:
         site: '{{.metadata.labels.site}}'
         env: '{{.metadata.labels.env}}'
         color: '{{.metadata.labels.color}}'
+        autoSync: '{{.autoSync}}'
+        imageTag: '{{(or .imageTag "latest")}}'
       annotations:
         team: '{{.metadata.annotations.team}}' # Use team annotation
     spec:
