@@ -1,4 +1,22 @@
 {
-  "autoSync": false,
-  "imageTag": "1.2.3"
+  "app": {
+    "dev": {
+      "blue": {
+        "image": {
+          "tag": "0.120.0"
+        },
+        "commit": {
+          "sha": "ac9dd64"
+        }
+      },
+      "green": {
+        "image": {
+          "tag": "0.120.0"
+        },
+        "commit": {
+          "sha": "ac9dd64"
+        }
+      }
+    }
+  }
 }

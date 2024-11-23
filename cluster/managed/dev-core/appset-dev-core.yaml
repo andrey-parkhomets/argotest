@@ -60,7 +60,7 @@ spec:
         site: '{{.metadata.labels.site}}'
         env: '{{.metadata.labels.env}}'
         color: '{{.metadata.labels.color}}'
-        autoSync: '{{.autoSync}}'
+        autoSync: '{{or .autoSync "undefined"}}'
         imageTag: '{{(or .imageTag "latest")}}'
       annotations:
         team: '{{.metadata.annotations.team}}' # Use team annotation
@@ -74,10 +74,10 @@ spec:
           helm:
             parameters:
               # - name: app.image.tag
-              #   value: {{.Values.app.dev.green.image.tag | quote}}
+              #   value: {{.app.dev.green.image.tag | quote}}
               #   forceString: true
               # - name: app.commit.sha
-              #   value: {{ .Values.app.dev.green.commit.sha | quote}}
+              #   value: {{.app.dev.green.commit.sha | quote}}
               #   forceString: true
               - name: app.color
                 value: "{{.metadata.labels.color}}" #color
