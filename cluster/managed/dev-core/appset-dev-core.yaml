@@ -36,6 +36,7 @@ spec:
               revision: HEAD
               files:
                 - path: cluster/k8s-charts/{{.appName}}/.config.yaml
+                - path: cluster/k8s-charts/default/.config.yaml
             # selector:
             #   matchExpressions:
             #   - {key: name, operator: Exists}
