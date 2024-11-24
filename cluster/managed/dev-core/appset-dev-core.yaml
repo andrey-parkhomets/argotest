@@ -46,23 +46,22 @@ spec:
     - .spec.source.helm.values
     - .spec.sources[] | .helm.parameters
     - .spec.sources[] | .helm.values
-  # strategy:
-  #   type: RollingSync
-  #   rollingSync:
-  #     steps:
-  #       - matchExpressions:
-  #           - key: appName
-  #             operator: In
-  #             values:
-  #               - external-secrets
-  #               - azure-csi
-  #         maxUpdate: 1
-  #       - matchExpressions:
-  #           - key: appName
-  #             operator: In
-  #             values:
-  #               - new-new
-  #         maxUpdate: 1
+  strategy:
+    type: RollingSync
+    rollingSync:
+      steps:
+        - matchExpressions:
+            - key: appName
+              operator: In
+              values:
+                - external-secrets
+          maxUpdate: 1
+        - matchExpressions:
+            - key: appName
+              operator: In
+              values:
+                - azure-csi
+          maxUpdate: 1
 
   template:
     metadata:
