@@ -35,5 +35,5 @@
             values: |
               {{ .|toYaml }}
         destination:
-          name: 'name'
-          namespace: 'namespace'
+          namespace: "{{.namespace}}"
+          server: https://kubernetes.default.svc
