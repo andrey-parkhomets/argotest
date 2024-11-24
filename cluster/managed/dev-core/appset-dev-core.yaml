@@ -23,8 +23,12 @@ spec:
                     apptargetRevision: HEAD
                     # chart: ''
                     namespace: kube-infra-vault
-                    valueRepoURL: https://github.com/andrey-parkhomets/argotest.git
-                    valuetargetRevision: HEAD
+                    # valueRepoURL: https://github.com/andrey-parkhomets/argotest.git
+                    # valuetargetRevision: HEAD
+                  - appName: azure-csi
+                    appChartRepoURL: https://github.com/andrey-parkhomets/argotest.git
+                    apptargetRevision: HEAD
+                    namespace: kube-system
           - git:
               repoURL: https://github.com/andrey-parkhomets/argotest.git
               revision: HEAD
@@ -118,9 +122,9 @@ spec:
                 ingress:
                   dnsSuffix: '{{index .metadata.annotations "dnsSuffix" |default (get (urlParse .server) "host") }}'
 
-        - repoURL: "{{.valueRepoURL}}"
-          targetRevision: "{{.valuetargetRevision}}"
-          ref: values
+        # - repoURL: "{{.valueRepoURL}}"
+        #   targetRevision: "{{.valuetargetRevision}}"
+        #   ref: values
       destination:
         # name: '{{.name}}'
         namespace: "{{.namespace}}"
