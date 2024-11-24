@@ -65,7 +65,6 @@ spec:
 
   template:
     metadata:
-      finalizers: []
       name: '{{.appName}}-{{.metadata.labels.env}}-{{.metadata.labels.color}}'
       labels:
         appName: '{{.appName}}'
@@ -74,12 +73,12 @@ spec:
         color: '{{.metadata.labels.color}}'
         autoSync: '{{or .autoSync "undefined"}}'
         imageTag: '{{or .app.dev.green.image.tag "latest"}}'
-      # annotations:
-      #   team: '{{.metadata.annotations.team}}' # Use team annotation
+      annotations:
+        team: '{{.metadata.annotations.team}}'
     spec:
       project: project-dev-clusters
-      sources:
-        - repoURL: "{{.appChartRepoURL}}"
+      source:
+          repoURL: "{{.appChartRepoURL}}"
           # chart: '{{.chart}}'
           targetRevision: "{{.apptargetRevision}}"
           path: "cluster/k8s-charts/{{.appName}}"
@@ -105,9 +104,9 @@ spec:
 
             ######################
             valueFiles:
-              - "$values/cluster/k8s-charts/{{.appName}}/values.yaml"
-              - "$values/cluster/k8s-charts/{{.appName}}/values-{{.metadata.labels.env}}.yaml"
-              - "$values/cluster/k8s-charts/{{.appName}}/values-{{.metadata.labels.env}}-{{.metadata.labels.color}}.yaml"
+              - "values.yaml"
+              - "values-{{.metadata.labels.env}}.yaml"
+              - "values-{{.metadata.labels.env}}-{{.metadata.labels.color}}.yaml"
             ######################
             valuesObject:
               app:
@@ -122,10 +121,6 @@ spec:
                 namespace: '{{.namespace}}'
                 ingress:
                   dnsSuffix: '{{index .metadata.annotations "dnsSuffix" |default (get (urlParse .server) "host") }}'
-
-        - repoURL: "{{.valueRepoURL}}"
-          targetRevision: "{{.valuetargetRevision}}"
-          ref: values
       destination:
         # name: '{{.name}}'
         namespace: "{{.namespace}}"
@@ -156,12 +151,3 @@ spec:
             duration: 5s # Initial retry interval
             factor: 2 # Multiplication factor for the backoff
             maxDuration: 1m # Maximum retry interval
-  # syncPolicy:
-    # Prevents ApplicationSet controller from modifying or deleting Applications
-    # applicationsSync: create-only
-
-    # Prevents ApplicationSet controller from deleting Applications. Update is allowed
-    # applicationsSync: create-update
-
-    # Prevents ApplicationSet controller from modifying Applications. Delete is allowed.
-    # applicationsSync: create-delete
