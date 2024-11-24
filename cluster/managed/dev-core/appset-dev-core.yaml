@@ -74,9 +74,9 @@ spec:
     spec:
       project: project-dev-clusters
       sources:
-        - repoURL: https://github.com/andrey-parkhomets/argotest.git
+        - repoURL: "{{.appChartRepoURL}}"
           # chart: '{{.chart}}'
-          targetRevision: HEAD
+          targetRevision: "{{.apptargetRevision}}"
           path: "cluster/k8s-charts/{{.appName}}"
            # use next in helm.values to see generated result structure
            # {{.|toYaml}}
