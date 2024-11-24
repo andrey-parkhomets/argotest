@@ -122,10 +122,10 @@ spec:
           path: "cluster/k8s-charts/{{.appName}}"
            # use next in helm.values to see generated result structure
            # {{.|toYaml}}
-          helm:
+          # helm:
             # values: |
             #   {{.|toYaml}}
-            releaseName: "{{.appname}}"
+            # releaseName: "{{.appname}}"
             #################
             #
             # The helm.parameters - specific feature and may not be needed for all apps, here it's just example.
