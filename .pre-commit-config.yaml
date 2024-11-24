@@ -54,5 +54,5 @@ repos:
           - -p./
         exclude: |
             (?x)(
-                Chart.yaml|values..*.yaml|application-parameters.yaml
+                Chart.yaml|values..*.yaml|.config.yaml
             )$

@@ -1,0 +1,24 @@
+---
+app:
+  dev:
+    blue:
+      image:
+        tag: 0.124.0
+      commit:
+        sha: 1c9dd64
+    green:
+      image:
+        tag: 0.123.0
+      commit:
+        sha: 2c9dd64
+  prod:
+    blue:
+      image:
+        tag: 0.121.0
+      commit:
+        sha: 3c9dd64
+    green:
+      image:
+        tag: 0.122.0
+      commit:
+        sha: 4c9dd64
