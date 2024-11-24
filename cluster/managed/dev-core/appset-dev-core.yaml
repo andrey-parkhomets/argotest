@@ -3,7 +3,7 @@ kind: ApplicationSet
 metadata:
   name: appset-dev-core
 spec:
-  # applyNestedSelectors: true
+  applyNestedSelectors: true
   goTemplate: true
   # goTemplateOptions: ["missingkey=error"]
   generators:
@@ -21,24 +21,23 @@ spec:
                   - appName: external-secrets
                     appChartRepoURL: https://github.com/andrey-parkhomets/argotest.git
                     apptargetRevision: HEAD
-                    # chart: ''
                     namespace: kube-infra-vault
-                    valueRepoURL: https://github.com/andrey-parkhomets/argotest.git
-                    valuetargetRevision: HEAD
+                    valueFiles:
+                    - "values-{{.metadata.labels.env}}.yaml"
+                    - "values-{{.metadata.labels.env}}-{{.metadata.labels.color}}.yaml"
+
                   - appName: azure-csi
                     appChartRepoURL: https://github.com/andrey-parkhomets/argotest.git
                     apptargetRevision: HEAD
                     namespace: kube-system
-                    valueRepoURL: https://github.com/andrey-parkhomets/argotest.git
-                    valuetargetRevision: HEAD
+
           - git:
               repoURL: https://github.com/andrey-parkhomets/argotest.git
               revision: HEAD
               files:
                 - path: cluster/k8s-charts/{{.appName}}/.config.yaml
-            # selector:
-            #   matchExpressions:
-            #   - {key: name, operator: Exists}
+              values:
+                foo: bar
 
   ignoreApplicationDifferences:
   - jqPathExpressions:
@@ -62,6 +61,45 @@ spec:
               values:
                 - azure-csi
           maxUpdate: 1
+  templatePatch: |
+    spec:
+      source:
+        helm:
+          parameters:
+          - name: revisionHistoryLimit
+            value: "5"
+
+          - name: app.image.tag
+            value: '{{index . "app" .metadata.labels.env .metadata.labels.color "image" "tag" |default "latest"}}'
+
+          - name: app.commit.sha
+            value: '{{index . "app" .metadata.labels.env .metadata.labels.color "commit" "sha" |default ""}}'
+
+          - name: app.color
+            value: "{{.metadata.labels.color}}" #color
+
+          - name: app.env
+            value: "{{.metadata.labels.env}}" #env
+
+          valueFiles:
+            - "values.yaml"
+          {{- range $valueFile := .valueFiles }}
+            - {{ $valueFile }}
+          {{- end }}
+
+          valuesObject:
+            app:
+              "{{.metadata.labels.env}}":
+                "{{.metadata.labels.color}}":
+                  image:
+                    tag: '{{ index . "app" .metadata.labels.env .metadata.labels.color "image" "tag" }}'
+                  commit:
+                    sha: '{{ index . "app" .metadata.labels.env .metadata.labels.color "commit" "sha" }}'
+              labels:
+                argocd.argoproj.io/instance: '{{.appName }}-{{.metadata.labels.env}}-{{.metadata.labels.color}}'
+              namespace: '{{.namespace}}'
+              ingress:
+                dnsSuffix: '{{index .metadata.annotations "dnsSuffix" |default (get (urlParse .server) "host") }}'
 
   template:
     metadata:
@@ -85,42 +123,49 @@ spec:
            # use next in helm.values to see generated result structure
            # {{.|toYaml}}
           helm:
-            # releaseName: {{.appname}}
-            parameters:
-            - name: revisionHistoryLimit
-              value: "5"
+            # values: |
+            #   {{.|toYaml}}
+            releaseName: "{{.appname}}"
+            #################
+            #
+            # The helm.parameters - specific feature and may not be needed for all apps, here it's just example.
+            #
+            ##################
+            # parameters:
+            # - name: revisionHistoryLimit
+            #   value: "5"
 
-            - name: app.image.tag
-              value: '{{index . "app" .metadata.labels.env .metadata.labels.color "image" "tag" |default "latest"}}'
+            # - name: app.image.tag
+            #   value: '{{index . "app" .metadata.labels.env .metadata.labels.color "image" "tag" |default "latest"}}'
 
-            - name: app.commit.sha
-              value: '{{index . "app" .metadata.labels.env .metadata.labels.color "commit" "sha" |default ""}}'
+            # - name: app.commit.sha
+            #   value: '{{index . "app" .metadata.labels.env .metadata.labels.color "commit" "sha" |default ""}}'
 
-            - name: app.color
-              value: "{{.metadata.labels.color}}" #color
+            # - name: app.color
+            #   value: "{{.metadata.labels.color}}" #color
 
-            - name: app.env
-              value: "{{.metadata.labels.env}}" #env
+            # - name: app.env
+            #   value: "{{.metadata.labels.env}}" #env
 
             ######################
-            valueFiles:
-              - "values.yaml"
-              - "values-{{.metadata.labels.env}}.yaml"
-              - "values-{{.metadata.labels.env}}-{{.metadata.labels.color}}.yaml"
+            # valueFiles:
+            #   - "values.yaml"
+            #   - "values-{{.metadata.labels.env}}.yaml"
+            #   - "values-{{.metadata.labels.env}}-{{.metadata.labels.color}}.yaml"
             ######################
-            valuesObject:
-              app:
-                "{{.metadata.labels.env}}":
-                  "{{.metadata.labels.color}}":
-                    image:
-                      tag: '{{ index . "app" .metadata.labels.env .metadata.labels.color "image" "tag" }}'
-                    commit:
-                      sha: '{{ index . "app" .metadata.labels.env .metadata.labels.color "commit" "sha" }}'
-                labels:
-                  argocd.argoproj.io/instance: '{{.appName }}-{{.metadata.labels.env}}-{{.metadata.labels.color}}'
-                namespace: '{{.namespace}}'
-                ingress:
-                  dnsSuffix: '{{index .metadata.annotations "dnsSuffix" |default (get (urlParse .server) "host") }}'
+            # valuesObject:
+            #   app:
+            #     "{{.metadata.labels.env}}":
+            #       "{{.metadata.labels.color}}":
+            #         image:
+            #           tag: '{{ index . "app" .metadata.labels.env .metadata.labels.color "image" "tag" }}'
+            #         commit:
+            #           sha: '{{ index . "app" .metadata.labels.env .metadata.labels.color "commit" "sha" }}'
+            #     labels:
+            #       argocd.argoproj.io/instance: '{{.appName }}-{{.metadata.labels.env}}-{{.metadata.labels.color}}'
+            #     namespace: '{{.namespace}}'
+            #     ingress:
+            #       dnsSuffix: '{{index .metadata.annotations "dnsSuffix" |default (get (urlParse .server) "host") }}'
       destination:
         # name: '{{.name}}'
         namespace: "{{.namespace}}"
