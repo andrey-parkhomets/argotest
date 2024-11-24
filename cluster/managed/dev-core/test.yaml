@@ -1,0 +1,39 @@
+  apiVersion: argoproj.io/v1alpha1
+  kind: ApplicationSet
+  metadata:
+    name: appset-dev-core
+  spec:
+    goTemplate: true
+    goTemplateOptions: [ "missingkey=error" ]
+    generators:
+      - matrix:
+          generators:
+            - matrix:
+                  generators:
+                    - list:
+                        elements:
+                          - labels.color: green
+
+                    - list:
+                        elements:
+                          - env: dev
+            - list:
+                elements:
+                  - substitute1: "2"
+                    substitute2: 2
+    template:
+      metadata:
+        finalizers: []
+        name: 'abc'
+      spec:
+        project: project-dev-clusters
+        source:
+          repoURL: https://github.com/andrey-parkhomets/argotest.git
+          targetRevision: HEAD
+          path: "cluster/k8s-charts/abc"
+          helm:
+            values: |
+              {{ .|toYaml }}
+        destination:
+          name: 'name'
+          namespace: 'namespace'
