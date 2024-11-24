@@ -93,10 +93,10 @@ spec:
               value: "5"
 
             - name: app.image.tag
-              value: "{{.app.dev.green.image.tag}}"
+              value: '{{index . "app" .metadata.labels.env .metadata.labels.color "image" "tag" |default "latest"}}'
 
             - name: app.commit.sha
-              value: "{{.app.dev.green.commit.sha}}"
+              value: '{{index . "app" .metadata.labels.env .metadata.labels.color "commit" "sha" |default ""}}'
 
             - name: app.color
               value: "{{.metadata.labels.color}}" #color
