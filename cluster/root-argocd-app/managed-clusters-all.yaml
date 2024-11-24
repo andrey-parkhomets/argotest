@@ -13,6 +13,8 @@ spec:
       directories:
       - path: cluster/managed/*
       - path: cluster/managed/*/team-abc
+      - path: cluster/managed/*/team-abc/.test
+        exclude: true
   template:
     metadata:
       finalizers: []
