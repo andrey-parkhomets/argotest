@@ -35,8 +35,11 @@ spec:
             #   - {key: name, operator: Exists}
 
   ignoreApplicationDifferences:
-  - jsonPointers:
-    - /spec/syncPolicy
+  - jqPathExpressions:
+    - .spec.source.helm.parameters
+    - .spec.source.helm.values
+    - .spec.sources[] | .helm.parameters
+    - .spec.sources[] | .helm.values
   strategy:
     type: RollingSync
     rollingSync:
