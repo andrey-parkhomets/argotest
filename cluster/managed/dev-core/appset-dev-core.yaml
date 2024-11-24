@@ -76,8 +76,7 @@ spec:
           targetRevision: HEAD
           path: "cluster/k8s-charts/{{.appName}}"
           helm:
-            # {{.|toPrettyJson}}
-             # dnsSuffixDig: {{dig "metadata" "annotations" "dnsSuffix" "empty" .}}
+            # {{.|toYaml}}
             values: |
               app:
                 {{.metadata.labels.env}}:
@@ -90,8 +89,7 @@ spec:
                   argocd.argoproj.io/instance: {{.appName }}-{{.metadata.labels.env}}-{{.metadata.labels.color}}
                 namespace: {{.namespace}}
                 ingress:
-                  dnsSuffixIndex: {{index . "metadata" "annotations" "dnsSuffix"}}
-
+                  dnsSuffix: {{index .metadata.annotations "dnsSuffix" |default (get (urlParse .server) "host")| quote }}
 
             parameters:
             - name: app.image.tag
