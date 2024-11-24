@@ -36,7 +36,7 @@ spec:
       source:
         repoURL: https://github.com/andrey-parkhomets/argotest.git
         targetRevision: HEAD
-        path: "cluster/k8s-charts/abc"
+        path: "cluster/k8s-charts/azure-csi"
         helm:
           parameters:
           - name: revisionHistoryLimit
@@ -44,7 +44,7 @@ spec:
           values: |
             {{ .|toYaml }}
       destination:
-        namespace: "demo"
+        namespace: "kube-system"
         server: https://kubernetes.default.svc
       syncPolicy:
         automated:
