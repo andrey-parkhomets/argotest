@@ -35,5 +35,30 @@
             values: |
               {{ .|toYaml }}
         destination:
-          namespace: "{{.namespace}}"
+          namespace: "demo"
           server: https://kubernetes.default.svc
+        syncPolicy:
+          automated:
+            prune: true # Specifies if resources should be pruned during auto-syncing ( false by default ).
+            selfHeal: true # Specifies if partial app sync should be executed when resources are changed only in target Kubernetes cluster and no git change detected ( false by default ).
+            allowEmpty: false # Allows deleting all application resources during automatic syncing ( false by default ).
+          syncOptions:
+          - Retry=true
+          - ApplyOutOfSyncOnly=true
+          - FailOnSharedResource=true
+          - CreateNamespace=true
+          # - PrunePropagationPolicy=orphan
+          managedNamespaceMetadata: # Sets the metadata for the application namespace. Only valid if CreateNamespace=true (see above), otherwise it's a no-op.
+            labels: # The labels to set on the application namespace
+              any: label
+              you: like
+            annotations: # The annotations to set on the application namespace
+              the: same
+              applies: for
+              annotations: on-the-namespace
+          retry:
+            limit: 5 # Maximum number of retries
+            backoff:
+              duration: 5s # Initial retry interval
+              factor: 2 # Multiplication factor for the backoff
+              maxDuration: 1m # Maximum retry interval
