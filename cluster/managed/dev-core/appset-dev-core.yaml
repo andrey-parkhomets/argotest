@@ -75,40 +75,46 @@ spec:
           # chart: '{{.chart}}'
           targetRevision: HEAD
           path: "cluster/k8s-charts/{{.appName}}"
+           # use next in helm.values to see generated result structure
+           # {{.|toYaml}}
           helm:
-            # {{.|toYaml}}
-            values: |
-              app:
-                {{.metadata.labels.env}}:
-                  {{.metadata.labels.color}}:
-                    image:
-                      tag: {{ index . "app" .metadata.labels.env .metadata.labels.color "image" "tag" }}
-                    commit:
-                      sha: {{ index . "app" .metadata.labels.env .metadata.labels.color "commit" "sha" }}
-                labels:
-                  argocd.argoproj.io/instance: {{.appName }}-{{.metadata.labels.env}}-{{.metadata.labels.color}}
-                namespace: {{.namespace}}
-                ingress:
-                  dnsSuffix: {{index .metadata.annotations "dnsSuffix" |default (get (urlParse .server) "host")| quote }}
-
+            # releaseName: {{.appname}}
             parameters:
+            - name: revisionHistoryLimit
+              value: "5"
+
             - name: app.image.tag
               value: "{{.app.dev.green.image.tag}}"
-              forceString: true
+
             - name: app.commit.sha
               value: "{{.app.dev.green.commit.sha}}"
-              forceString: true
+
             - name: app.color
               value: "{{.metadata.labels.color}}" #color
-              forceString: true
+
             - name: app.env
               value: "{{.metadata.labels.env}}" #env
-              forceString: true
-          #   releaseName: '{{.appName}}'
+
+            ######################
             valueFiles:
               - "$values/cluster/k8s-charts/{{.appName}}/values.yaml"
               - "$values/cluster/k8s-charts/{{.appName}}/values-{{.metadata.labels.env}}.yaml"
               - "$values/cluster/k8s-charts/{{.appName}}/values-{{.metadata.labels.env}}-{{.metadata.labels.color}}.yaml"
+            ######################
+            valuesObject:
+              app:
+                "{{.metadata.labels.env}}":
+                  "{{.metadata.labels.color}}":
+                    image:
+                      tag: '{{ index . "app" .metadata.labels.env .metadata.labels.color "image" "tag" }}'
+                    commit:
+                      sha: '{{ index . "app" .metadata.labels.env .metadata.labels.color "commit" "sha" }}'
+                labels:
+                  argocd.argoproj.io/instance: '{{.appName }}-{{.metadata.labels.env}}-{{.metadata.labels.color}}'
+                namespace: '{{.namespace}}'
+                ingress:
+                  dnsSuffix: '{{index .metadata.annotations "dnsSuffix" |default (get (urlParse .server) "host") }}'
+
         - repoURL: "{{.valueRepoURL}}"
           targetRevision: "{{.valuetargetRevision}}"
           ref: values
