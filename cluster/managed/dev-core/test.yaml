@@ -1,7 +1,7 @@
   apiVersion: argoproj.io/v1alpha1
   kind: ApplicationSet
   metadata:
-    name: appset-dev-core
+    name: appset-dev-core-test
   spec:
     goTemplate: true
     goTemplateOptions: [ "missingkey=error" ]
