@@ -32,6 +32,9 @@
           targetRevision: HEAD
           path: "cluster/k8s-charts/abc"
           helm:
+            parameters:
+            - name: revisionHistoryLimit
+              value: "5"
             values: |
               {{ .|toYaml }}
         destination:
